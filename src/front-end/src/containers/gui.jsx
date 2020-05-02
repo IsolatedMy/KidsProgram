@@ -45,6 +45,28 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+        /*
+        const url="/static/unknow world.sb3";
+        fetch(url,{
+            method: 'GET'
+        })
+        .then(response=>response.blob())
+        .then(blob=>{
+            const reader=new FileReader();
+            reader.onload=()=>this.props.vm.loadProject(reader.result)
+            .then(()=>{
+                GoogleAnalytics.event({
+                    category:'project',
+                    action:'Import Project File',
+                    nonInteraction:true
+                })
+            })
+            reader.readAsArrayBuffer(blob)
+        })
+        .catch(error=>{
+            alert(`远程加载文件错误！${error}`)
+        })
+        */
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
