@@ -8,9 +8,9 @@
 
 #### 端口
 
-|端口url|发送数据要求|功能|
-|----|----|----|
-|\user\login\ | 包含键值对'username'和'password' | 根据输入的username和password在数据库中查找是否有对应元组，并根据查找结果返回一段字符串
++ `\user\login\`
+  + 发送数据：包含键值对'username'和'password' 
+  + 功能： 根据输入的username和password在数据库中查找是否有对应元组，并根据查找结果返回一段字符串
 
 ### 数据库说明
 当前决定的数据库包括如下若干
@@ -48,3 +48,26 @@
 |level|关卡|int||
 |score|评分|Enum('0','2','3')| |
 
+## 前端说明
+
+
+
+## 问题集锦
+
+**git提交后未能成功上传**
+
+问题描述：在提交git时，某个文件夹尽管包含在`git add`的路径中，却不能够成功上传
+
+解决方法：首先执行
+
+```sh
+git status
+```
+
+​	在未能提交的文件夹会出现这样一段提示信息（本例中是`frontend`文件夹）：
+
+```
+modified:   frontend (modified content, untracked content)
+```
+
+​	此时`frontend/`文件夹下有一个`.git`文件夹，删除后重新利用`git add`指令即可。
