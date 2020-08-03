@@ -4,6 +4,7 @@ import pymysql
 app = Flask(__name__)
 
 def func(sql, m ='r'):
+    # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
     py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8');
     cursor = py.cursor()
     try:
@@ -19,7 +20,7 @@ def func(sql, m ='r'):
         data = False
         py.rollback()
     py.close()
-    return data 
+    return data
 
 @app.route('/user/login/', methods=["POST"])
 def user_login():
@@ -31,6 +32,6 @@ def user_login():
         return '<b>Login Suceess</b>'
     else:
         return '<b>Login Failed</b>'
-    
+
 if __name__ == '__main__':
     app.run (debug=True, host='localhost', port='8000')

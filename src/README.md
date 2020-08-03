@@ -2,11 +2,13 @@
 
 ## 后端说明
 
-### 服务器运行
+### 注意事项
 
-当前Falsk程序运行在localhost:8000下，前端发送消息请向这一端口发送信息。
++ 修改`backend/app.py`中的`pymysql.connect`语句，将其中的cmy和123456修改成自己MySQL中的用户名和密码。之后执行python文件即可让后端开始运行。
 
-#### 端口
++ 当前Falsk程序运行在localhost:8000下，前端发送消息请向这一端口发送信息。
+
+### 端口
 
 + `\user\login\`
   + 发送数据：包含键值对'username'和'password' 
@@ -46,7 +48,7 @@
 |----|----|----|----|
 |user_id|用户id|int|主键，非空，外键，唯一|
 |level|关卡|int||
-|score|评分|Enum('0','2','3')| |
+|score|评分|待定| |
 
 ## 前端说明
 
@@ -71,3 +73,12 @@ modified:   frontend (modified content, untracked content)
 ```
 
 ​	此时`frontend/`文件夹下有一个`.git`文件夹，删除后重新利用`git add`指令即可。
+
+​	如果仍然未能够上传（这一点可以在`git commit`时通过输出信息判断），在`frontend`下执行下面的指令：
+
+```
+git rm --cached . -rf
+```
+
+​	从指令效果看，该指令将当前无法提交的文件夹删除，之后再重新利用`git add`添加到git中并提交。
+
