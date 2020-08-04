@@ -50,6 +50,22 @@
           this.$message.error('请输入密码');
           return;
         }
+        // 08.04.2020
+        
+        this.$axios({
+          method: "post",
+          url: this.HOST + "/user/login/", 
+          data: this.$qs.stringify({
+            username: this.userName,
+            password: this.password
+          })
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
  
       }
     }
