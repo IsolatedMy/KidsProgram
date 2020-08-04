@@ -11,6 +11,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './style/theme.css'
 import './style/characters.css'
  
+// 用于和后台交互,发送请求
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+Vue.prototype.$axios = axios
+Vue.prototype.HOST='/api'
+
+//Request Payload 转Form Data
+import qs from 'qs'      //引入qs
+Vue.prototype.$qs = qs
+
 // 注册element-ui
 Vue.use(ElementUI)
  
