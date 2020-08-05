@@ -22,16 +22,28 @@ def func(sql, m ='r'):
     py.close()
     return data
 
+# 登录方法
 @app.route('/user/login/', methods=["POST"])
 def user_login():
     data = dict(request.form)
     username = data['username']
     sql = "select * from user where username = '{0}' ".format(username)
     res = func(sql, 'l')
-    if res[2] == data['password']:
+    if res and res[2] == data['password']:
         return '<b>Login Suceess</b>'
     else:
         return '<b>Login Failed</b>'
+
+# 注册方法
+@app.route('/user/register/', methods=["POST"])
+def user_register():
+    data = dict(request.form)
+    sql = "insert into children values ('{childusername}','{password}','{sex}','{age}','{childphone}')".format (**data)
+    res = func(sql,m='w')
+    if res:
+        return '<script>alert("添加成功");location.href="/";</script>'
+    else:
+        return '<script>alert("添加失败");location.href="/";</script>'
 
 if __name__ == '__main__':
     app.run (debug=True, host='localhost', port='8000')
