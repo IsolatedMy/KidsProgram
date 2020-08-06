@@ -1,0 +1,90 @@
+from flask import Flask, request, jsonify, make_response
+import pymysql
+from flask_cors import CORS
+from flask_httpauth import HTTPBasicAuth
+
+app = Flask(__name__)
+
+# CORS
+CORS(app,supports_credentials=True)
+@app.after_request
+def after_request(resp):
+    resp = make_response(resp)
+    resp.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:8080'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET,POST'
+    resp.headers['Access-Control-Allow-Headers'] = 'content-type,token'
+    return resp
+
+
+# Http auth
+auth = HTTPBasicAuth()
+
+
+@auth.verify_password
+def verify_password(username_token):
+    username_token = request.headers.get('Token')
+    if username_token == '':
+        return False
+    else:
+        # 检测token是否有效
+        # currnet_user = user.verify_auth_token(username_token)
+        # return currnet_user is not None
+        return True
+
+@auth.error_handler
+def auth_error():
+    return 'Invalid credentials'
+
+'''
+实现@auth.verify_password这个回调函数，
+当被@auth.login_required修饰的视图函数被访问时，会先执行回调函数，
+在回调函数中将获取http头部的token，
+并验证该token是否合法，若合法则允许访问。
+'''
+'''
+# 例子
+@auth.login_required
+@app.route('/creatpost',methods=['POST'])
+def new_post():
+    json = request.get_json()
+    newpost = Post(title=json['title'],content=json['content'])
+    db.session.add(newpost)
+    db.session.commit()
+    return "200 OK"
+'''
+
+def func(sql, m ='r'):
+    # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
+    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8');
+    cursor = py.cursor()
+    try:
+        cursor.execute(sql)
+        if m == 'r':
+            data = cursor.fetchall()
+        elif m == 'l':
+            data = cursor.fetchone()
+        elif m == 'w':
+            py.commit()
+            data = cursor.rowcount
+    except:
+        data = False
+        py.rollback()
+    py.close()
+    return data
+
+@app.route('/user/login/', methods=["POST"])
+def user_login():
+    data = dict(request.form)
+    username = data['username']
+    sql = "select * from user where username = '{0}' ".format(username[0])
+    res = func(sql, 'l')
+    if res and res[2] == data['password'][0]:
+        # token = user.generate_auth_token()
+        # return token
+        return '<b>Login Suceess</b>'
+    else:
+        # return null
+        return '<b>Login Failed</b>'
+
+if __name__ == '__main__':
+    app.run (debug=True, host='localhost', port='8000')
