@@ -79,13 +79,9 @@ def user_login():
     username = data['username']
     sql = "select * from user where username = '{0}' ".format(username[0])
     res = func(sql, 'l')
-<<<<<<< HEAD
     if res and res[2] == data['password'][0]:
         # token = user.generate_auth_token()
         # return token
-=======
-    if res and res[2] == data['password']:
->>>>>>> 02bd86bdde817dcc0879fd191cc7a36524a88f73
         return '<b>Login Suceess</b>'
     else:
         # return null
