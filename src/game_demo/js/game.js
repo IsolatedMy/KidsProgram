@@ -148,7 +148,3 @@ function game_turn(dir) {
   }
   ctx.drawImage(img.idle,index * 16,0,16,17,real_xy(game['x']),real_xy(game['y']),50,50);
 }
-
-//register handler
-elem_game.addEventListener('move_forward',e => game_move(e.detail.value));
-elem_game.addEventListener('turn',e => game_turn(e.detail.value));

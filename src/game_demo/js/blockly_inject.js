@@ -48,10 +48,7 @@ Blockly.JavaScript['move_forward'] = function(block) {
   var number_name = block.getFieldValue('NAME');
   var code = 
     `
-      var event = new CustomEvent('move_forward',{detail:
-        {value:${number_name}}
-      });
-      elem_game.dispatchEvent(event);\n
+    await game_move(${number_name});\n
     `;
   return code;
 };
@@ -60,10 +57,7 @@ Blockly.JavaScript['turn'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var code = 
     `
-      var event = new CustomEvent('turn',{detail:
-        {value:${dropdown_direction}}
-      });
-      elem_game.dispatchEvent(event);\n
+    game_turn(${dropdown_direction});\n
     `;
   return code;
 };

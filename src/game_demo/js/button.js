@@ -1,8 +1,15 @@
 //button event handler
 function button_run()
 {
+  code =
+    `
+    async function wrapper(){
+      ${Blockly.JavaScript.workspaceToCode(workspace)}
+    }
+    wrapper();
+    `;
   try{
-    eval(Blockly.JavaScript.workspaceToCode(workspace));
+    eval(code);
   } catch (e) {
     alert(e);
   }
