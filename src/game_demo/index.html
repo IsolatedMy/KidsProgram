@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>blockly demo</title>
+
+    <!--Blockly-->
+    <script src="./libs/blockly/blockly_compressed.js"></script>
+    <script src="./libs/blockly/blocks_compressed.js"></script>
+    <script src="./libs/blockly/javascript_compressed.js"></script>
+    <script src="./libs/blockly/en.js"></script>
+
+    <!--bootstrap-->
+    <link rel="stylesheet" href="./libs/bootstrap/bootstrap.css">
+</head>
+<body>
+  <!--toolbox-->
+  <xml id="toolbox" style="display: none">
+      <block type="move_forward"></block>
+      <block type="turn"></block>
+  </xml>
+  <div class="container-fluid">
+    <div class="row h-100">
+      <div class="col d-flex flex-column">
+        <canvas id="game" width="300px" height="300" class="mx-auto d-block"></canvas>
+        <div>
+          <button type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
+          <button type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
+        </div>
+      </div>
+      <div id="blockly" class="col-6 d-flex flex-column">
+          <div id="blockly-editor" class="flex-grow-1"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/global_variable.js"></script>
+  <script src="./js/load_img.js"></script>
+  <script src="./js/blockly_inject.js"></script>
+  <script src="./js/game.js"></script>
+  <script src="./js/button.js"></script>
+</body>
+</html>
