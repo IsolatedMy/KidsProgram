@@ -18,3 +18,10 @@ The kid's programming experiment for Group Struggle in Software Engineering
 | 开发工程师（后端） | 陈铭瑜<br>杨一帆<br>丰泽群<br>赵明杰<br>周泽宇<br>李秉韩 | 后端开发。可能负责的内容包括数据库，静态资源配置，<br>短信验证功能，服务器框架选择，后端包管理工具，<br>异步请求插件等内容 |
 | 测试工程师         | 张擎洋<br>刘珂                                           | 提升产品质量，检查程序中的潜在漏洞<br>与产品经理交流以了解可能的测试点 |
 
+## 运行方式
+
+```cmd
+# 后端flask：KidsProgram\src\backend>
+flask run -p 8000
+```
+

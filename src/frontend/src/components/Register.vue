@@ -4,30 +4,31 @@
       <img class="inner_label login_logo" src="../assets/logo.png">
     </div>
     <div class="login_form">
-      <el-button class="login_btn" @click.native="game" type="primary" round :loading="isBtnLoading">选关</el-button>
-      
-      <el-button class="login_btn" @click.native="center" type="primary" round :loading="isBtnLoading">个人中心</el-button>
-      <el-button class="login_btn" @click.native="community" type="primary" round :loading="isBtnLoading">社区</el-button>
-      <!--<button class="login_btn el-button el-button&#45;&#45;primary is-round" type="primary" round>登录</button>-->
+      <el-input type="text" v-model="userName" class="qxs-ic_user" placeholder="用户名"/>
+      <el-input type="text" v-model="password" class="qxs-ic_password" placeholder="密码"/>
+      <el-input type="text" v-model="email" class="qxs-ic_password" placeholder="邮箱"/>
+      <el-input type="text" v-model="phone" class="qxs-ic_password" placeholder="电话"/>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">登录</el-button>
       <div style="margin-top: 10px">
-        <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
+        <span style="color: #000099;" @click="register">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
     </div>
   </div>
 </template>
- 
- 
- 
+
+
+
 <script>
+  import { mapMutations } from 'vuex';
+  import store from '../store'
 //  import { userLogin } from '../../api/api';
- 
   export default {
     data() {
       return {
         userName: '',
         password: '',
+        email:'',
+        phone:'',
         isBtnLoading: false
       }
     },
@@ -45,19 +46,37 @@
     },
     methods: {
       register() {
-        this.$router.push('/register');
-      },
-      login() {
-        this.$router.push('/login');
-      },
-      game() {
-        this.$router.push('/game');
-      },
-      community() {
-        this.$router.push('/community');
-      },
-      center() {
-        this.$router.push('/center');
+        if (!this.userName) {
+          this.$message.error('请输入用户名');
+          return;
+        }
+        if (!this.password) {
+          this.$message.error('请输入密码');
+          return;
+        }
+        if (!this.email && !this.phone) {
+          this.$message.error('请至少输入邮箱、手机号中的一个');
+          return;
+        }
+        // 08.04.2020
+
+        this.$axios({
+          method: "post",
+          url: this.HOST + "/user/register/",
+          data: this.$qs.stringify({
+            username: this.userName,
+            password: this.password,
+            email: this.email,
+            phone: this.phone
+          })
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       }
     }
   }
@@ -69,13 +88,12 @@
     padding-right: 10%;
   }
   .qxs-ic_user {
-    background: url("../assets/ic_user.png") no-repeat;
-    background-size: 13px 15px;
+    margin-bottom: 20px;
+    background-size: 20px 20px;
     background-position: 3%;
   }
   .qxs-ic_password {
-    background: url("../assets/ic_password.png") no-repeat;
-    background-size: 13px 15px;
+    background-size: 20px 20px;
     background-position: 3%;
     margin-bottom: 20px;
   }

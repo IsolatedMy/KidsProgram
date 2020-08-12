@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Main from '../components/Main'
 import Login from '../components/Login.vue'
+import Register from '../components/Register.vue'
 import Game from '../components/Game.vue'
 import Community from '../components/Community.vue'
 import Center from '../components/Center.vue'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Main',
       component: Main
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/login',

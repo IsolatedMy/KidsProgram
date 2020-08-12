@@ -91,7 +91,7 @@ def user_login():
 @app.route('/user/register/', methods=["POST"])
 def user_register():
     data = dict(request.form)
-    sql = "insert into children values ('{childusername}','{password}','{sex}','{age}','{childphone}')".format (**data)
+    sql = "insert into children values ('{username}','{password}','{email}','{phone}')".format (**data)
     res = func(sql,m='w')
     if res:
         return '<script>alert("添加成功");location.href="/";</script>'
