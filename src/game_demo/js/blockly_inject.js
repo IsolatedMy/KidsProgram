@@ -26,11 +26,11 @@ Blockly.defineBlocksWithJsonArray([
         "options": [
           [
             "left",
-            cst['dir']['LEFT'].toString()
+            this.cst['dir']['LEFT'].toString()
           ],
           [
             "right",
-            cst['dir']['RIGHT'].toString()
+            this.cst['dir']['RIGHT'].toString()
           ]
         ]
       }

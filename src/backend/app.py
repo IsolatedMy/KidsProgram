@@ -1,3 +1,5 @@
+#-*-coding:utf-8 -*-
+
 from flask import Flask, request, jsonify, make_response
 import pymysql
 from flask_cors import CORS
@@ -26,7 +28,7 @@ def verify_password(username_token):
     if username_token == '':
         return False
     else:
-        # 检测token是否有效
+        # check token valid :
         # currnet_user = user.verify_auth_token(username_token)
         # return currnet_user is not None
         return True
@@ -55,7 +57,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8');
+    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8');
     cursor = py.cursor()
     try:
         cursor.execute(sql)
