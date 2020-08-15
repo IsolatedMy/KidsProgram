@@ -28,7 +28,8 @@
       let token = localStorage.getItem('Authorization');
       console.log(token);
       if (token != '<b>Login Suceess</b>') {
-        this.$router.push('/login');
+        alert("请登陆！");
+        this.$router.push('/');
       }
     },
     computed: {
