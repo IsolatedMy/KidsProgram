@@ -7,7 +7,8 @@ export default new Vuex.Store({
 
   state: {
     // 存储token
-    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
+    exampleState: 0
   },
 
   mutations: {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
       state.Authorization = user.Authorization;
       localStorage.setItem('Authorization', user.Authorization);
       console.log(user);
+    },
+    changeExample (state, newState) {
+      state.exampleState = newState;
     }
   }
 });

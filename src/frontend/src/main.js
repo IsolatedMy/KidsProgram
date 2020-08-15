@@ -66,6 +66,17 @@ axios.interceptors.request.use(
         return Promise.reject(err);
     });
 
+//ignore blockly <xml> and <block>
+//https://vuejs.org/v2/api/#ignoredElements
+Vue.config.ignoredElements = [
+  'xml',
+  'block'
+]
+
+//use vue-plugin-load-script
+import LoadScript from 'vue-plugin-load-script'
+Vue.use(LoadScript)
+
 import store from './store'
 /* eslint-disable no-new */
 new Vue({
