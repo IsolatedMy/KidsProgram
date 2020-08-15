@@ -1,13 +1,25 @@
 <template>
   <div>
-    <canvas id="game" width="300px" height="300" class="mx-auto d-block"></canvas>
-    <p>{{ greeting }}</p>
+    <div class="container-fluid">
+      <div class="row h-100">
+        <div class="col d-flex flex-column">
+          <canvas id="game" width="300px" height="300" class="mx-auto d-block"></canvas>
+          <div>
+            <button type="button" class="btn btn-primary my-3 float-right" @click="button_run()">Run</button>
+            <button type="button" class="btn btn-primary my-3 float-right mr-3" @click="button_reset()">Reset</button>
+          </div>
+        </div>
+        <div id="blockly" class="col-6 d-flex flex-column">
+            <div id="blockly-editor" class="flex-grow-1"></div>
+        </div>
+      </div>
+    </div>
+    <p id="test">Hello World!</p>
   </div>
 </template>
 
 <script>
-  import Blockly from 'blockly'
-  import './js/blockly_inject.js'
+  import Blockly from 'blockly';
   export default {
     data: function() {
       return {
@@ -24,8 +36,14 @@
         sprite_width: 16,
         sprite_height: 17,
         greeting: "Hello, World!",
+        sprite_dest_size: 0,
+        img_count: 0,
+        img_sum: 5,
 
-        sprite_dest_size: 0
+        ctx: null,
+        init_game: null,
+        game: null,
+        img: {}
       }
     },
     methods: {
@@ -34,64 +52,46 @@
         if( img_count < img_sum )
           return;
         init_canvas();
-      }
-    },
-    mounted: function() {
-      console.log("Debug start");
-      //canvas element
-      let _this = this;
-
-      let cst = _this.cst;
-      let grid_size = _this.grid_size;
-      let grid_pad = _this.grid_pad;
-
-      let elem_game = document.querySelector('#game');
-
-      //game data
-      let ctx = elem_game.getContext("2d");
-
-      // if (elem_game != null) console.log('elem_game is not null');
-      let init_game = {
-        'dir': cst['dir']['DOWN'],
-        'x': 1,
-        'y': 1,
-        'dest_x': 4,
-        'dest_y': 3
-      };
-
-      let sprite_dest_size = grid_size - 2 * grid_pad;
-      let game = Object.assign({},init_game);
-
-      let img = {};
-      let img_count = 0;
-      let img_sum = 5;
-
-      function loaded() {
-        img_count ++;
-        if( img_count < img_sum )
-          return;
+      },
+      change: function() {
+        let xml = require('xml');
+        this.greeting = xml({xml: { _attr: { id:"toolbox", style:"display:none"},}});
+      },
+      button_run: function() {
+        code =
+          `
+          async function wrapper(){
+            ${Blockly.JavaScript.workspaceToCode(workspace)}
+          }
+          wrapper();
+          `;
+        try{
+          eval(code);
+        } catch (e) {
+          alert(e);
+        }
+      },
+      button_reset: function() {
+        this.ctx.clearRect(0,0,this.canvas_size,this.canvas_size);
+        game = Object.assign({},this.init_game);
         init_canvas();
-      };
-
-      img.idle= new Image();
-      img.idle.src = './assets/sprites/idle.png';
-      img.idle.onload = loaded;
-      img.walk_up= new Image();
-      img.walk_up.src = './assets/sprites/walk/up.png';
-      img.walk_up.onload = loaded;
-      img.walk_down= new Image();
-      img.walk_down.src = './assets/sprites/walk/down.png';
-      img.walk_down.onload = loaded;
-      img.walk_left= new Image();
-      img.walk_left.src = './assets/sprites/walk/left.png';
-      img.walk_left.onload = loaded;
-      img.walk_right= new Image();
-      img.walk_right.src = './assets/sprites/walk/right.png';
-      img.walk_right.onload = loaded;
-
-      function init_canvas() {
+      },
+      init_canvas: function(){
+        let real_xy = function(x) {
+          x--;
+          return x * grid_size + grid_pad;
+        };
         //sprite, 16x17 -> 50x50
-        ctx.drawImage(img.idle,0,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
+        let ctx = this.ctx;
+        let sprite_width = this.sprite_width;
+        let sprite_height = this.sprite_height;
+        let game = this.game;
+        let sprite_dest_size = this.sprite_dest_size;
+        let grid_size = this.grid_size;
+        let grid_pad = this.grid_pad;
+        let canvas_size = this.canvas_size;
+
+        ctx.drawImage(this.img.idle,0,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
         //board
         ctx.strokeRect(0,0,canvas_size,canvas_size);
         ctx.beginPath();
@@ -107,7 +107,58 @@
         ctx.stroke();
         ctx.closePath();
         //TODO:draw map(barrier) and dest
+      },
+      loaded: function() {
+        console.log("DEbuging");
+        this.img_count ++;
+        if( this.img_count >= this.img_sum )
+          return;
+        console.log("init_canvas");
+        this.init_canvas();
+      }
+    },
+    mounted: function() {
+      console.log("Debug start");
+      //canvas element
+
+      let cst = this.cst;
+      let grid_size = this.grid_size;
+      let grid_pad = this.grid_pad;
+      let sprite_dest_size = this.sprite_dest_size;
+
+      let elem_game = document.querySelector('#game');
+
+
+      //game data
+      this.ctx = elem_game.getContext("2d");
+      // if (elem_game != null) console.log('elem_game is not null');
+      this.init_game = {
+        'dir': cst['dir']['DOWN'],
+        'x': 1,
+        'y': 1,
+        'dest_x': 4,
+        'dest_y': 3
       };
+
+      this.sprite_dest_size = grid_size - 2 * grid_pad;
+      this.canvas_size = elem_game.width;
+      this.game = Object.assign({},this.init_game);
+
+      this.img.idle= new Image();
+      this.img.idle.src = require('./assets/sprites/idle.png');
+      this.img.idle.onload = this.loaded;
+      this.img.walk_up= new Image();
+      this.img.walk_up.src = './assets/sprites/walk/up.png';
+      this.img.walk_up.onload = this.loaded;
+      this.img.walk_down= new Image();
+      this.img.walk_down.src = './assets/sprites/walk/down.png';
+      this.img.walk_down.onload = this.loaded;
+      this.img.walk_left= new Image();
+      this.img.walk_left.src = './assets/sprites/walk/left.png';
+      this.img.walk_left.onload = this.loaded;
+      this.img.walk_right= new Image();
+      this.img.walk_right.src = './assets/sprites/walk/right.png';
+      this.img.walk_right.onload = this.loaded;
     }
   }
 </script>

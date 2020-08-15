@@ -29,20 +29,31 @@
     </el-row>
     ```
     <img src="../fig/frontend-1.png" style="zoom:50%">
+    
+    <center>
+      图一 Element-UI按钮组件示意图
+    </center>
+    
+    
+    
   + 禁用状态：可以使按钮进入不可用状态。可以使用`disabled`属性来定义按钮是否可用，它接受一个`Boolea`类型的值。
+    
     ```html
         <el-button disabled>默认按钮</el-button>
     ```
+    
   + 文字按钮：没有边框和背景色的按钮。利用`type`属性定义
     ```html
         <el-button type="text">文字按钮</el-button>
     ```
+    
   + 图标按钮：设置`icon`属性即可，icon的列表可以参考Element的[icon组件](https://element.eleme.cn/#/zh-CN/component/icon)，也可以设置在文字右边的icon，只要使用`<i>`标签即可，可以使用自定义图标
     ```html
         <el-button icon="el-icon-edit"></el-button>
         <el-button icon="el-icon-search">搜索</el-button>
         <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button>
     ```
+    
   + 组按钮：使用`<el-button-group>`标签来嵌套你的按钮；
     ```html
     <el-button-group>
@@ -51,6 +62,7 @@
         <el-button icon="el-icon-delete"></el-button>
     </el-button-group>
     ```
+    
   + 加载中： 要设置为 loading 状态，只要设置`loading`属性为`true`即可。
     ```html
     <el-button type="primary" :loading="true">加载中</el-button>
@@ -62,6 +74,68 @@
 ### HTML
 
 + HTML `<script>`标签的作用：在HTML 页面中插入一段 JavaScript。
++ [document.querySelector()](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelector)
+	+ 文档模型对象[Document](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)引用的`querySelector()`方法
+
+#### \<canvas\>标签
+
+##### canvas的基本用法
+
+**渲染上下文**
+
+​	`<canvas>`元素创造了一个固定大小的画布，它公开了一个或多个渲染上下文，其可以用来绘制和处理要展示的内容。我们会将注意力放在2D渲染上下文中。其他种类的上下文也许提供了不同种类的渲染方式。
+
+​	canvas初始是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。`<canvas>`元素有一个叫做`getContext()`的方法，这个方法是用来渲染上下文和它的绘画功能。`getContext()`只有一个参数，上下文的格式。对于2D图像而言，如本教程，你可以使用 [`CanvasRenderingContext2D`](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)。	
+
+```javascript
+var canvas = document.getElementById('tutorial');
+var ctx = canvas.getContext('2d');
+```
+
+**一个简单例子**
+
+​	一开始，让我们来看个简单的例子，我们绘制了两个有趣的长方形，其中的一个有着alpha透明度。我们将在接下来的例子里深入探索一下这是如何工作的。
+
+```html
+<html>
+  <head>
+    <script type="application/javascript">
+    	function draw() {
+				var canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+          var ctx = canvas.getContext("2d");
+          
+          ctx.fillStyle = "rgb(200, 0, 0)";
+          ctx.fillRect(10, 10, 55, 50);
+          
+          ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+          ctx.fillRect(30, 30, 55, 50);
+        }
+      }
+    </script>
+  </head>
+  <body onload="draw();">
+   <canvas id="canvas" width="150" height="150"></canvas>
+ 	</body>
+</html>
+```
+
+​	例子看起来是这样：
+
+<img src="../fig/frontend-2.png" style="zoom:50%">
+
+##### 使用图像 Using images
+
+**由零开始创建图像**
+
+我们可以用脚本创建一个新的`HTMLImageElement`对象。要实现这个办法，我们可以使用很方便的`Image()`构造函数。
+
+```javascript
+var img = new Image();		//创建一个<img>元素
+img.src = 'myImage.png';	//设置图片源地址
+```
+
+
 
 ### Javascript
 
@@ -156,7 +230,11 @@ mounted: function() {
 }
 ```
 
+------
 
+问题描述：[使用vue-router会在地址栏自动添加/#/号](https://segmentfault.com/q/1010000009134004/a-1020000009137571)
+
+解决办法：
 
 ### Webpack
 

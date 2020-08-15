@@ -1,3 +1,14 @@
+//const
+let cst = {
+  'dir':{
+    'UP': 0,
+    'RIGHT': 1,
+    'DOWN': 2,
+    'LEFT': 3
+  }
+};
+
+
 //define custom block
 Blockly.defineBlocksWithJsonArray([
   {
@@ -46,7 +57,7 @@ Blockly.defineBlocksWithJsonArray([
 //block code generation(dispatchevent)
 Blockly.JavaScript['move_forward'] = function(block) {
   var number_name = block.getFieldValue('NAME');
-  var code = 
+  var code =
     `
     await game_move(${number_name});\n
     `;
@@ -55,7 +66,7 @@ Blockly.JavaScript['move_forward'] = function(block) {
 
 Blockly.JavaScript['turn'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
-  var code = 
+  var code =
     `
     game_turn(${dropdown_direction});\n
     `;
