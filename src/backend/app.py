@@ -1,3 +1,5 @@
+#-*-coding:utf-8 -*-
+
 from flask import Flask, request, jsonify, make_response
 import pymysql
 from flask_cors import CORS
@@ -26,7 +28,7 @@ def verify_password(username_token):
     if username_token == '':
         return False
     else:
-        # 检测token是否有效
+        # check token valid :
         # currnet_user = user.verify_auth_token(username_token)
         # return currnet_user is not None
         return True

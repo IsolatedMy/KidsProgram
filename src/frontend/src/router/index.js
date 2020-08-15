@@ -7,10 +7,13 @@ import Register from '../components/Register.vue'
 import Game from '../components/Game.vue'
 import Community from '../components/Community.vue'
 import Center from '../components/Center.vue'
- 
+
+import Level1 from '../components/game/level1.vue'
+
 Vue.use(Router)
- 
+
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -31,6 +34,10 @@ export default new Router({
       path: '/game',
       name: 'Game',
       component: Game
+    },
+    {
+      path: '/game/Level1',
+      component: Level1
     },
     {
       path: '/center',

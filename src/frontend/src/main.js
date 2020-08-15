@@ -3,14 +3,21 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
- 
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
- 
+
+// 导入jQuery
+import $ from 'jquery'
+// 导入bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+// 导入blockly
+
 //自己写的样式
 import './style/theme.css'
 import './style/characters.css'
- 
+
 // 用于和后台交互,发送请求
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -23,7 +30,7 @@ Vue.prototype.$qs = qs
 
 // 注册element-ui
 Vue.use(ElementUI)
- 
+
 Vue.config.productionTip = false
 
 router.afterEach(route=>{

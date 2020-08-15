@@ -1,4 +1,4 @@
-#!/Users/chenmingyu/Documents/work/KidsProgram/KidsProgram/src/backend/venv/bin/python
+#!/Users/chenmingyu/Documents/work/KidsProgram/src/backend/venv/bin/python
 
 import sys
 import getopt
