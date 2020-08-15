@@ -10,7 +10,7 @@
       <el-button class="login_btn" @click.native="community" type="primary" round :loading="isBtnLoading">社区</el-button>
       <!--<button class="login_btn el-button el-button&#45;&#45;primary is-round" type="primary" round>登录</button>-->
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">登录</el-button>
+      <el-button class="login_btn" id="login" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
       <div style="margin-top: 10px">
         <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
@@ -28,13 +28,25 @@
       return {
         userName: '',
         password: '',
-        isBtnLoading: false
+        isBtnLoading: false,
+        isLogin: false,
+        loginText: "登陆"
       }
     },
     created () {
       if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
         this.userName = JSON.parse( localStorage.getItem('user')).userName;
         this.password = JSON.parse( localStorage.getItem('user')).password;
+      }
+      let token = localStorage.getItem('Authorization');
+      console.log(token);
+      if (token != '<b>Login Suceess</b>') {
+        this.isLogin = false;
+        this.loginText = "登陆";
+      }
+      else {
+        this.isLogin = true;
+        this.loginText = "退出登陆";
       }
     },
     computed: {

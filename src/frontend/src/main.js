@@ -30,9 +30,10 @@ router.afterEach(route=>{
     window.scroll(0,0);
 })
 
+/*
 router.beforeEach((to,from,next)=>{
     let token = localStorage.getItem('Authorization');
-    if(to.path === '/login'){
+    if(to.path == '/center'){
         next()
     }else{
         let token = localStorage.getItem('Authorization');
@@ -44,6 +45,7 @@ router.beforeEach((to,from,next)=>{
         }
     }
 })
+*/
 
 axios.interceptors.request.use(
     config => {

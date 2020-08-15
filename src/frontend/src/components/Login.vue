@@ -4,10 +4,10 @@
       <img class="inner_label login_logo" src="../assets/logo.png">
     </div>
     <div class="login_form">
-      <el-input type="text" v-model="userName" class="qxs-ic_user" placeholder="用户名"/>
-      <el-input type="text" v-model="password" class="qxs-ic_password" placeholder="密码"/>
-      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">登录</el-button>
-      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">注册</el-button>
+      <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
+      <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
+      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
+      <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
       <div style="margin-top: 10px">
         <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
@@ -26,13 +26,28 @@
       return {
         userName: '',
         password: '',
-        isBtnLoading: false
+        isBtnLoading: false,
+        isLogin: false,
+        loginText: "登陆",
+        testShow: true
       }
     },
     created () {
       if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
         this.userName = JSON.parse( localStorage.getItem('user')).userName;
         this.password = JSON.parse( localStorage.getItem('user')).password;
+      }
+      let token = localStorage.getItem('Authorization');
+      console.log(token);
+      if (token != '<b>Login Suceess</b>') {
+        this.isLogin = false;
+        this.loginText = "登陆";
+        this.testShow = true;
+      }
+      else {
+        this.isLogin = true;
+        this.loginText = "退出登陆";
+        this.testShow = false;
       }
     },
     computed: {
@@ -44,34 +59,70 @@
     methods: {
       ...mapMutations(['changeLogin']),
       login() {
-      let _this = this;
-        if (!this.userName) {
-          this.$message.error('请输入用户名');
-          return;
-        }
-        if (!this.password) {
-          this.$message.error('请输入密码');
-          return;
-        }
+        if(this.isLogin){
+          let _this = this;
+          this.isLogin = false;
+          this.loginText = "登陆";
+          this.testShow = true;
         // 08.04.2020
         
-        this.$axios({
-          method: "post",
-          url: this.HOST + "/user/login/", 
-          data: this.$qs.stringify({
-            username: this.userName,
-            password: this.password
+          this.$axios({
+            method: "post",
+            url: this.HOST + "/user/login/", 
+            data: this.$qs.stringify({
+              username: this.userName,
+              password: this.password
+            })
           })
-        })
-        .then(function (response) {
-          console.log(response);
-          let token = response.data
-          _this.changeLogin({Authorization: token})
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (response) {
+            _this.changeLogin({Authorization: '<b>Login Failed</b>'})
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+
+        else{
+          let _this = this;
+          if (!this.userName) {
+            this.$message.error('请输入用户名');
+            return;
+          }
+          if (!this.password) {
+            this.$message.error('请输入密码');
+            return;
+          }
+          // 08.04.2020
+          
+          this.$axios({
+            method: "post",
+            url: this.HOST + "/user/login/", 
+            data: this.$qs.stringify({
+              username: this.userName,
+              password: this.password
+            })
+          })
+          .then(function (response) {
+            console.log(response);
+            let token = response.data
+            _this.changeLogin({Authorization: token})
+            if (token == '<b>Login Failed</b>')
+            {
+              alert('登陆失败！');
+            }
+            else{
+              alert('登陆成功！');
+              _this.$router.push('/');
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
  
+      },
+      register() {
+        this.$router.push('/register');
       }
     }
   }

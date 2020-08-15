@@ -55,8 +55,9 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8');
+    py = pymysql.connect('localhost', 'root', 'zqy20000525', 'kidsprog', charset='utf8')
     cursor = py.cursor()
+    print(sql)
     try:
         cursor.execute(sql)
         if m == 'r':
@@ -77,9 +78,9 @@ def func(sql, m ='r'):
 def user_login():
     data = dict(request.form)
     username = data['username']
-    sql = "select * from user where username = '{0}' ".format(username[0])
+    sql = "select * from user where username = '{0}' ".format(username)
     res = func(sql, 'l')
-    if res and res[2] == data['password'][0]:
+    if res and res[2] == data['password']:
         # token = user.generate_auth_token()
         # return token
         return '<b>Login Suceess</b>'
