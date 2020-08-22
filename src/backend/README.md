@@ -76,9 +76,9 @@ git rm --cached . -rf
 
 ​	从指令效果看，该指令将当前无法提交的文件夹删除，之后再重新利用`git add`添加到git中并提交。
 
-
-
 ## 参考
 
 [1] [Haytham个人博客开发日志 -- Flask+Vue基于token的登录状态与路由管理](https://blog.csdn.net/chailie1504/article/details/100959645?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-4&spm=1001.2101.3001.4242)
+
+[2] [Vue项目中实现用户登录及token验证](https://www.cnblogs.com/web-record/p/9876916.html)
 

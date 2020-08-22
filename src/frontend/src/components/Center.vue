@@ -51,10 +51,10 @@
           return;
         }
         // 08.04.2020
-        
+
         this.$axios({
           method: "post",
-          url: this.HOST + "/user/login/", 
+          url: this.HOST + "/user/login/",
           data: this.$qs.stringify({
             username: this.userName,
             password: this.password
@@ -76,7 +76,7 @@
         .catch(function (error) {
           console.log(error);
         });
- 
+
       },
       register() {
         this.$router.push('/register');
