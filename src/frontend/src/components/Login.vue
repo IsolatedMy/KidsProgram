@@ -3,14 +3,28 @@
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/logo.png">
     </div>
+    <div class="back_label"></div>
+    <div class="dec_1" style="position: absolute; top: 190px; left: 100px;">欢</div>
+    <div class="dec_1" style="position: absolute; top: 190px; left: 150px;">迎</div>
+    <div class="dec_1" style="position: absolute; top: 190px; left: 200px;">登</div>
+    <div class="dec_1" style="position: absolute; top: 190px; left: 250px;">录</div>
+
     <div class="login_form">
       <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
       <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
       <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <div style="margin-top: 10px">
-        <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
-      </div>
+    <!--<div style="margin-top: 10px; position: relative; top: 600px;">
+        <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span>
+        <span style="color: #A9A9AB">版权归属@软工苟命组</span>
+      </div>-->
+    </div>
+    
+    <div style="position: absolute; top: 600px; left: 550px; margin-top: 20px;">
+        <span style="color: #000099; left:200px;" @click="login" >本网站问题请邮件咨询...</span>
+    </div>
+    <div style="margin-top: 5px; position: absolute; top: 645px; left: 550px;">
+      <span style="color: #A9A9AB; left: 200px;">版权归属@软工苟命组</span>
     </div>
   </div>
 </template>
@@ -129,10 +143,39 @@
 </script>
 <style>
   .login_form {
-    padding-top: 10%;
+    position: absolute;;
+    top: 200px;
+    left: 380px;
+    height: 400px;
+    width: 500px;
+    padding-top: 5%;
     padding-left: 10%;
     padding-right: 10%;
   }
+ .back_label {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 1300px;
+    height: 400px;
+    opacity: 0.75;
+    z-index: 0;
+    background-image: url("../assets/register_bg1.jpg");
+  }
+  .dec_1 {
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    background-color: #ccff33;
+    color: #000033; 
+    font-size: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  .dec_1:hover {
+    transform: scale(7);
+  }
+  
   .qxs-ic_user {
     margin-bottom: 20px;
     background-size: 20px 20px;
