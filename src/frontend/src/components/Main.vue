@@ -2,14 +2,14 @@
   <div>
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
-    </div> 
+    </div>
     <div class="login_form" > <!--style="background-color: #663333;"-->
-      <el-button class="login_btn" @click.native="game" type="primary" round :loading="isBtnLoading">选关</el-button>
-      <el-button class="login_btn" @click.native="center" type="primary" round :loading="isBtnLoading" >个人中心</el-button>
-      <el-button class="login_btn" @click.native="community" type="primary" round :loading="isBtnLoading">社区</el-button>
+      <el-button class="main_btn" @click.native="game" type="primary" round :loading="isBtnLoading">选关</el-button>
+      <el-button class="main_btn" @click.native="center" type="primary" round :loading="isBtnLoading" >个人中心</el-button>
+      <el-button class="main_btn" @click.native="community" type="primary" round :loading="isBtnLoading">社区</el-button>
       <!--<button class="login_btn el-button el-button&#45;&#45;primary is-round" type="primary" round>登录</button>-->
-      <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <el-button class="login_btn" id="login" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
+      <el-button class="main_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
+      <el-button class="main_btn" id="login" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
     </div>
     <div class="back_label"></div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
@@ -79,7 +79,7 @@
   }
 </script>
 <style>
-  
+
   .qxs-ic_user {
     background: url("../assets/ic_user.png") no-repeat;
     background-size: 13px 15px;
@@ -94,7 +94,7 @@
   .login_logo {
     height: 100%;
   }
-  .login_btn {
+  .main_btn {
     width: 200px;
     font-size: 20px;
     margin-top: 20px;
