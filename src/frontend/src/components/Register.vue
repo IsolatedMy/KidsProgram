@@ -73,13 +73,7 @@
         .then(function (response) {
           console.log(response);
           let token = response.data
-          if (token == '<b>alert("添加成功")</b>' )
-          {
-            alert('注册成功');
-          }
-          else {
-            alert('注册失败');
-          }
+          alert(token);
         })
         .catch(function (error) {
           console.log(error);

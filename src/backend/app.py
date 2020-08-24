@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, make_response
 import pymysql
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
+import re
 
 app = Flask(__name__)
 
@@ -57,7 +58,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', '', '', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -94,6 +95,26 @@ def user_login():
 @app.route('/user/register/', methods=["POST"])
 def user_register():
     data = dict(request.form)
+    username = data['username']
+    check_sql = "select * from user where username = '{0}'".format(username)
+    check = func(check_sql, 'r')
+    print(check)
+    if check:
+        return '<script>alert("用户名已存在")</script>'
+    
+    p = r'([^@]+)@([^@]+)\.([^@]+)'
+    email = data['email']
+    if not email:
+        return '<script>alert("邮箱不能为空")</script>'
+    if re.search(p, email, re.M|re.I):
+        orgnization = re.search(p, email, re.M|re.I).group(2)
+        post = re.search(p, email, re.M|re.I).group(3)
+        valid_mail = ['qq', '163', 'gmail', 'sina']
+        if orgnization not in valid_mail or post != 'com':
+            return '<script>alert("邮箱格式有误")</script>'
+    else:
+        return '<script>alert("邮箱格式有误")</script>'
+
     sql = "insert into user (username, password, role, create_time, login_state, email, phone)" \
          " values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
     res = func(sql,m='w')
