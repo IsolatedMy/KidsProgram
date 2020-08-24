@@ -9,6 +9,8 @@ npm install
 # 让网站运行在localhost:8080
 npm run dev
 
+# 执行以上两条命令以后，前端就已经正常运行了
+
 # build for production with minification
 npm run build
 
