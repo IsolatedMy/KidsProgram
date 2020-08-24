@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "blockly": "^3.20200625.2",
+    "bootstrap": "^4.5.2",
     "element-ui": "^2.13.2",
+    "popper.js": "^1.16.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.5.1",
-    "blockly": "^3.20200625.2",
-    "bootstrap": "^4.5.2",
-    "popper.js": "^1.16.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {
