@@ -14,6 +14,7 @@
       <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
       <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
+      <el-button class="login_btn" @click.native="retn" type="primary" round :loading="isBtnLoading">返回</el-button>
     <!--<div style="margin-top: 10px; position: relative; top: 600px;">
         <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span>
         <span style="color: #A9A9AB">版权归属@软工苟命组</span>
@@ -137,6 +138,9 @@
       },
       register() {
         this.$router.push('/register');
+      },
+      retn() {
+        this.$router.go(-1);
       }
     }
   }

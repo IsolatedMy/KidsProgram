@@ -9,6 +9,7 @@
       <el-input type="text" v-model="email" class="qxs-ic_password" placeholder="邮箱"/>
       <el-input type="text" v-model="phone" class="qxs-ic_password" placeholder="电话"/>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
+      <el-button class="login_btn" @click.native="retn" type="primary" round :loading="isBtnLoading">返回</el-button>
       <div style="margin-top: 10px">
         <span style="color: #000099;" @click="register">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
@@ -79,6 +80,9 @@
           console.log(error);
         });
 
+      },
+      retn() {
+        this.$router.go(-1);
       }
     }
   }
