@@ -9,6 +9,7 @@ import Community from '../components/Community.vue'
 import Center from '../components/Center.vue'
 
 import Level1 from '../components/game/level1.vue'
+import Level2 from '../components/game/level2.vue'
 
 Vue.use(Router)
 
@@ -36,8 +37,12 @@ export default new Router({
       component: Game
     },
     {
-      path: '/game/Level1',
+      path: '/game/level1',
       component: Level1
+    },
+    {
+      path: '/game/level2',
+      component: Level2
     },
     {
       path: '/center',
