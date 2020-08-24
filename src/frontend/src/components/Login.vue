@@ -20,11 +20,11 @@
       </div>-->
     </div>
     
-    <div style="position: absolute; top: 600px; left: 550px; margin-top: 20px;">
-        <span style="color: #000099; left:200px;" @click="login" >本网站问题请邮件咨询...</span>
+    <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
+      <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
-    <div style="margin-top: 5px; position: absolute; top: 645px; left: 550px;">
-      <span style="color: #A9A9AB; left: 200px;">版权归属@软工苟命组</span>
+    <div style="margin-top: 5px; position: absolute; top: 645px; left: 44%;">
+      <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
     </div>
   </div>
 </template>
@@ -145,9 +145,9 @@
   .login_form {
     position: absolute;;
     top: 200px;
-    left: 380px;
+    left: 30%;
     height: 400px;
-    width: 500px;
+    width: 40%;
     padding-top: 5%;
     padding-left: 10%;
     padding-right: 10%;
@@ -156,7 +156,7 @@
     position: absolute;
     top: 200px;
     left: 0;
-    width: 1300px;
+    width: 100%;
     height: 400px;
     opacity: 0.75;
     z-index: 0;
