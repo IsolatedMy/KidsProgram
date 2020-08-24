@@ -89,7 +89,8 @@
             })
           })
           .then(function (response) {
-            _this.changeLogin({Authorization: '<b>Login Failed</b>'})
+            localStorage.setItem('Authorization', '');
+            _this.$router.push({path:'/', query:{isLogin: false}});
           })
           .catch(function (error) {
             console.log(error);
@@ -126,7 +127,7 @@
             }
             else{
               alert('登陆成功！');
-              _this.$router.push('/');
+              _this.$router.push({path:'/', query:{isLogin: true}});
             }
           })
           .catch(function (error) {

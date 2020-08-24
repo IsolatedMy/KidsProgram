@@ -32,9 +32,7 @@
       return {
         userName: '',
         password: '',
-        isBtnLoading: false,
-        isLogin: false,
-        loginText: "登陆"
+        isBtnLoading: false
       }
     },
     created () {
@@ -42,21 +40,22 @@
         this.userName = JSON.parse( localStorage.getItem('user')).userName;
         this.password = JSON.parse( localStorage.getItem('user')).password;
       }
-      let token = localStorage.getItem('Authorization');
-      console.log(token);
-      if (token != '<b>Login Suceess</b>') {
-        this.isLogin = false;
-        this.loginText = "登陆";
-      }
-      else {
-        this.isLogin = true;
-        this.loginText = "退出登陆";
-      }
     },
     computed: {
       btnText() {
         if (this.isBtnLoading) return '登录中...';
         return '登录';
+      },
+      loginText() {
+        if (this.isLogin){
+          return "退出登陆";
+        }
+        else {
+          return "登陆";
+        }
+      },
+      isLogin() {
+        return this.$route.query.isLogin
       }
     },
     methods: {
