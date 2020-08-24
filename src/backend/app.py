@@ -57,7 +57,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'zqy20000525', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', '', '', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -94,12 +94,13 @@ def user_login():
 @app.route('/user/register/', methods=["POST"])
 def user_register():
     data = dict(request.form)
-    sql = "insert into children values ('{username}','{password}','{email}','{phone}')".format (**data)
+    sql = "insert into user (username, password, role, create_time, login_state, email, phone)" \
+         " values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
     res = func(sql,m='w')
     if res:
-        return '<script>alert("添加成功");location.href="/";</script>'
+        return '<b>alert("添加成功")</b>'
     else:
-        return '<script>alert("添加失败");location.href="/";</script>'
+        return '<b>alert("添加失败")</b>'
 
 if __name__ == '__main__':
     app.run (debug=True, host='localhost', port='8000')
