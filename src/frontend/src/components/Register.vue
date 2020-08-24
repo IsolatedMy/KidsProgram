@@ -72,6 +72,8 @@
         })
         .then(function (response) {
           console.log(response);
+          let token = response.data
+          alert(token);
         })
         .catch(function (error) {
           console.log(error);

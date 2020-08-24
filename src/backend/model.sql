@@ -3,7 +3,7 @@ create database if not exists kidsprog;
 use kidsprog;
 
 create table if not exists kidsprog.user (
-    user_id int unsigned not null,
+    user_id int unsigned not null AUTO_INCREMENT,
     username varchar(20) not null,
     password varchar(20) not null,
     role ENUM('A', 'U') not null DEFAULT 'U',

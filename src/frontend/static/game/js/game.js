@@ -1,17 +1,29 @@
-//game handler and helper function
+//game event handler and helper function
 
-let real_xy = function(x) {
-  x--;
-  return x * grid_size + grid_pad;
+//use current game state
+function is_dest() {
+  return game['map'][game['y'] - 1][game['x'] - 1] === 2;
 }
 
-//game event handler
+//use future game state
+function is_obs(x,y) {
+  return game['map'][y - 1][x - 1] === 1;
+}
+
 //move_forward n step
 //!animation
 async function game_move(n) {
   for( let i = 0;i < n;i ++ )
   {
     await game_move_one();
+  }
+  //should check dest here rather than in game_move_one
+  //obstacle check
+  if( is_dest() )
+  {
+    //can use vuex store
+    alert('finish game!');
+    button_reset();
   }
 }
 
@@ -61,6 +73,12 @@ function game_move_one(){
     //border check
     if( real_xy(game['x'] + all_x) > canvas_size || real_xy(game['y'] + all_y) > canvas_size
       || real_xy(game['x'] + all_x) < 0 || real_xy(game['y'] + all_y) < 0 )
+    {
+      res();
+      return;
+    }
+    //obstacle check
+    if( is_obs(game['x'] + all_x,game['y'] + all_y) )
     {
       res();
       return;

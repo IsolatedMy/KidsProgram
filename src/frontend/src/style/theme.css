@@ -3,7 +3,6 @@ body {
     margin:0;
     font-family: "Microsoft YaHei UI Light";
   }
-   
   .outer_label {
     position: relative;
     left: 0;
@@ -35,4 +34,3 @@ body {
     border: 0;
     border-bottom: solid 1px lavender;
   }
-  

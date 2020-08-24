@@ -13,6 +13,7 @@ function button_run()
   } catch (e) {
     alert(e);
   }
+  vue.$store.commit('changeExample',2);
 }
 function button_reset()
 {
