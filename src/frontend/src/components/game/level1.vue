@@ -18,6 +18,7 @@
           </div>
         </div>
         <div id="blockly" class="col-6 d-flex flex-column vh-100">
+            <div class="alert alert-primary"><span id="capacity"></span> blocks left</div>
             <div id="blockly-editor" class="flex-grow-1"></div>
         </div>
       </div>
@@ -29,7 +30,7 @@
 export default {
   data: function () {
     return {
-      level: 2
+      level: 1
     }
   },
   mounted() {

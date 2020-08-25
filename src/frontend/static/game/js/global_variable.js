@@ -67,6 +67,8 @@ let init_game_array = [
 ];
 let init_game = init_game_array[level];
 let game = Object.assign({},init_game);
+let max_blocks_array = [5,7];
+let max_blocks = max_blocks_array[level];
 
 //all image
 let img = {};

@@ -71,7 +71,7 @@ function highlightBlock(id) {
 }
 
 //inject blockly
-let  workspace = Blockly.inject('blockly-editor',
+let workspace = Blockly.inject('blockly-editor',
   {
    toolbox: document.getElementById('toolbox'),
    grid:
@@ -80,6 +80,15 @@ let  workspace = Blockly.inject('blockly-editor',
        length: 3,
        colour: '#888',
        snap: true
-     }
+     },
+    maxBlocks: max_blocks
   }
 );
+
+function update_capacity() {
+  document.getElementById('capacity').textContent = workspace.remainingCapacity();
+}
+
+//update block capacity info
+workspace.addChangeListener(update_capacity);
+update_capacity();
