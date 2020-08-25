@@ -7,7 +7,7 @@ function is_dest() {
 
 //use future game state
 function is_obs(x,y) {
-  return game['map'][y - 1][x - 1] === 1;
+  return game['map'][y - 1][x - 1] === 3;
 }
 
 //move_forward n step

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="maze">
     <!--toolbox-->
     <xml id="toolbox" style="display: none">
         <block type="move_forward"></block>
@@ -9,10 +9,10 @@
       <div class="row">
         <div class="col-6 d-flex flex-column">
           <div class="mx-auto" style="position:relative; width:300px; height:300px;">
-            <canvas id="game" width="300px" height="300px" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
-            <canvas id="game_bg" width="300px" height="300px" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
+            <canvas id="game" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
+            <canvas id="game_bg" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
           </div>
-          <div>
+          <div style="margin-top:auto">
             <button type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
             <button type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
           </div>
@@ -28,7 +28,9 @@
 <script>
 export default {
   data: function () {
-    return {}
+    return {
+      level: 2
+    }
   },
   mounted() {
     this.$loadScript('/static/blockly/blockly_compressed.js')
