@@ -9,10 +9,7 @@ body {
     top: 0;
     width: 100%;
     height: 220px;
-    background: -webkit-linear-gradient(left, #000099, #2154FA); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, #000099, #2154FA); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, #000099, #2154FA); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, #000099 , #2154FA); /* 标准的语法 */
+    background: #ffffff; /* 标准的语法 */
     /*background-color: #000099;*/
     text-align: center;
     filter: brightness(1.4);

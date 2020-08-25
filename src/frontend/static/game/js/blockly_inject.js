@@ -7,7 +7,9 @@ Blockly.defineBlocksWithJsonArray([
       {
         "type": "field_number",
         "name": "NAME",
-        "value": 1
+        "value": 1,
+        "min": 0,
+        "max": 5
       }
     ],
     "previousStatement": null,
@@ -46,7 +48,7 @@ Blockly.defineBlocksWithJsonArray([
 //block code generation(dispatchevent)
 Blockly.JavaScript['move_forward'] = function(block) {
   var number_name = block.getFieldValue('NAME');
-  var code = 
+  var code =
     `
     await game_move(${number_name});\n
     `;
@@ -55,7 +57,7 @@ Blockly.JavaScript['move_forward'] = function(block) {
 
 Blockly.JavaScript['turn'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
-  var code = 
+  var code =
     `
     game_turn(${dropdown_direction});\n
     `;

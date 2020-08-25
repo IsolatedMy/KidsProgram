@@ -20,7 +20,6 @@
         <span style="color: #A9A9AB">版权归属@软工苟命组</span>
       </div>-->
     </div>
-    
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
       <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
@@ -29,9 +28,9 @@
     </div>
   </div>
 </template>
- 
- 
- 
+
+
+
 <script>
   import { mapMutations } from 'vuex';
   import store from '../store'
@@ -80,17 +79,18 @@
           this.loginText = "登陆";
           this.testShow = true;
         // 08.04.2020
-        
+
           this.$axios({
             method: "post",
-            url: this.HOST + "/user/login/", 
+            url: this.HOST + "/user/login/",
             data: this.$qs.stringify({
               username: this.userName,
               password: this.password
             })
           })
           .then(function (response) {
-            _this.changeLogin({Authorization: '<b>Login Failed</b>'})
+            localStorage.setItem('Authorization', '');
+            _this.$router.push({path:'/', query:{isLogin: false}});
           })
           .catch(function (error) {
             console.log(error);
@@ -108,10 +108,10 @@
             return;
           }
           // 08.04.2020
-          
+
           this.$axios({
             method: "post",
-            url: this.HOST + "/user/login/", 
+            url: this.HOST + "/user/login/",
             data: this.$qs.stringify({
               username: this.userName,
               password: this.password
@@ -127,14 +127,14 @@
             }
             else{
               alert('登陆成功！');
-              _this.$router.push('/');
+              _this.$router.push({path:'/', query:{isLogin: true}});
             }
           })
           .catch(function (error) {
             console.log(error);
           });
         }
- 
+
       },
       register() {
         this.$router.push('/register');
@@ -171,7 +171,7 @@
     width: 10px;
     height: 10px;
     background-color: #ccff33;
-    color: #000033; 
+    color: #000033;
     font-size: 10px;
     border-radius: 5px;
     transition: 0.3s;
@@ -179,7 +179,7 @@
   .dec_1:hover {
     transform: scale(7);
   }
-  
+
   .qxs-ic_user {
     margin-bottom: 20px;
     background-size: 20px 20px;

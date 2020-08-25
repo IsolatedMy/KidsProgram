@@ -91,6 +91,12 @@ def user_login():
         # return null
         return '<b>Login Failed</b>'
 
+# 查询方法
+@app.route('/user/query/', methods=['POST'])
+def user_login():
+    data = dict(request.form)
+    
+
 # 注册方法
 @app.route('/user/register/', methods=["POST"])
 def user_register():
