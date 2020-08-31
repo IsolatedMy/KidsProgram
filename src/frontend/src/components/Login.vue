@@ -1,27 +1,34 @@
 <template>
   <div>
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-row type="flex">
+        <el-col :span="2">
+          <el-menu-item index="1" @click.native="main">
+            <i class="el-icon-s-home"></i>
+          </el-menu-item>
+        </el-col>
+        <el-col :span="20"></el-col>
+        <el-col :span="2">
+          <el-menu-item index="2">
+            <el-button type="text" @click.native="login" v-if="!isLogin" disabled>登录</el-button>
+          </el-menu-item>
+        </el-col>
+      </el-row>
+    </el-menu>
     <div class="outer_label">
-      <img class="inner_label login_logo" src="../assets/logo.png">
+      <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
     <div class="back_label"></div>
-    <div class="dec_1" style="position: absolute; top: 190px; left: 100px;">欢</div>
-    <div class="dec_1" style="position: absolute; top: 190px; left: 150px;">迎</div>
-    <div class="dec_1" style="position: absolute; top: 190px; left: 200px;">登</div>
-    <div class="dec_1" style="position: absolute; top: 190px; left: 250px;">录</div>
-
     <div class="login_form">
       <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
       <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
-      <el-button class="login_btn" @click.native="login" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
+      <el-button class="login_btn" @click.native="userlogin" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
+      <el-button class="login_btn" @click.native="retrieve" type="primary" round :loading="isBtnLoading">找回密码</el-button>
       <el-button class="login_btn" @click.native="retn" type="primary" round :loading="isBtnLoading">返回</el-button>
-    <!--<div style="margin-top: 10px; position: relative; top: 600px;">
-        <span style="color: #000099;" @click="login">本网站问题请邮件咨询...</span>
-        <span style="color: #A9A9AB">版权归属@软工苟命组</span>
-      </div>-->
     </div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
-      <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
+      <span style="color: #000099; left: 30%;" @click="userlogin" >本网站问题请邮件咨询...</span>
     </div>
     <div style="margin-top: 5px; position: absolute; top: 645px; left: 44%;">
       <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
@@ -42,15 +49,11 @@
         password: '',
         isBtnLoading: false,
         isLogin: false,
-        loginText: "登陆",
+        loginText: "登录",
         testShow: true
       }
     },
     created () {
-      if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
-        this.userName = JSON.parse( localStorage.getItem('user')).userName;
-        this.password = JSON.parse( localStorage.getItem('user')).password;
-      }
       let token = localStorage.getItem('Authorization');
       console.log(token);
       if (token != '<b>Login Suceess</b>') {
@@ -72,7 +75,7 @@
     },
     methods: {
       ...mapMutations(['changeLogin']),
-      login() {
+      userlogin() {
         if(this.isLogin){
           let _this = this;
           this.isLogin = false;
@@ -141,6 +144,9 @@
       },
       retn() {
         this.$router.go(-1);
+      },
+      retrieve() {
+        this.$router.push('/retrieve');
       }
     }
   }

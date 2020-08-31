@@ -11,7 +11,7 @@
         <el-col :span="2">
           <el-menu-item index="2">
             <el-button type="text" @click.native="login" v-if="!this.isLogin">{{ loginText }}</el-button>
-            <el-button type="text" @click.native="exitLogin" v-if="this.isLogin">{{ loginText }}</el-button>
+            <el-button type="text" v-if="this.isLogin">{{ loginText }}</el-button>
           </el-menu-item>
         </el-col>
       </el-row>
@@ -19,11 +19,9 @@
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
-    <div class="login_form" > <!--style="background-color: #663333;"-->
-      <el-button class="main_btn" @click.native="game" type="primary" round>选关</el-button>
-      <el-button class="main_btn" @click.native="center" type="primary" round>个人中心</el-button>
-      <el-button class="main_btn" @click.native="community" type="primary" round>社区</el-button>
-      <el-button class="main_btn" @click.native="register" type="primary" round>注册</el-button>
+    <div class="login_form">
+      <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
+      <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
     </div>
     <div class="back_label"></div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
@@ -39,20 +37,22 @@
 
 
 <script>
-//  import { userLogin } from '../../api/api';
-
   export default {
     data() {
       return {
         userName: '',
         password: '',
         isBtnLoading: false,
-        activeIndex: '1',
-        loginStatus: false
+        isLogin: false,
+        loginText: "登录",
+        testShow: true
       }
     },
     created () {
-
+      if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
+        this.userName = JSON.parse( localStorage.getItem('user')).userName;
+        this.password = JSON.parse( localStorage.getItem('user')).password;
+      }
     },
     computed: {
       btnText() {
@@ -67,25 +67,8 @@
           return "登录";
         }
       },
-      isLogin: {
-        get: function() {
-          return this.$route.query.isLogin
-        },
-        set: function(newValue) {
-          this.loginStatus = newValue
-        }
-      },
-      fullName: {
-        // getter
-        get: function () {
-          return this.firstName + ' ' + this.lastName
-        },
-        // setter
-        set: function (newValue) {
-          var names = newValue.split(' ')
-          this.firstName = names[0]
-          this.lastName = names[names.length - 1]
-        }
+      isLogin() {
+        return this.$route.query.isLogin
       }
     },
     methods: {
@@ -95,43 +78,36 @@
       login() {
         this.$router.push('/login');
       },
-      exitLogin() {
-        this.$router.push('/');
-      },
       game() {
-        this.$router.push({path:'/game', query:{isLogin: true} });
+        this.$router.push('/game');
       },
       community() {
         this.$router.push('/community');
       },
       center() {
-        if (this.isLogin)
-          this.$router.push({path:'/center', query:{isLogin: true}});
-        else
-          this.$message.error("请先登录");
+        this.$router.push('/center');
       },
       main() {
         this.$router.push('/');
       },
       nativeHandler() {
         alert("hello");
-      },
-      goBack() {
-        this.$router.replace({path: '/'});
       }
-    },
-    mounted() {
-      if (window.history && window.history.pushState) {
-        history.pushState(null, null, document.URL);
-        window.addEventListener('popstate', this.goBack, false);
-      }
-    },
-    destroyed() {
-      window.removeEventListener('popstate', this.goBack, false);
     }
   }
 </script>
+
 <style>
+  .login_form {
+    position: absolute;;
+    top: 200px;
+    left: 30%;
+    height: 400px;
+    width: 40%;
+    padding-top: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
   .qxs-ic_user {
     background: url("../assets/ic_user.png") no-repeat;
     background-size: 13px 15px;

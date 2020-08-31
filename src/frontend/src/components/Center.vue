@@ -80,6 +80,9 @@
       },
       register() {
         this.$router.push('/register');
+      },
+      main() {
+        this.$router.push('/');
       }
     }
   }

@@ -86,14 +86,14 @@ def user_login():
     if res and res[2] == data['password']:
         # token = user.generate_auth_token()
         # return token
-        return '<b>Login Suceess</b>'
+        return username
     else:
         # return null
         return '<b>Login Failed</b>'
 
 # 查询方法
 @app.route('/user/query/', methods=['POST'])
-def user_login():
+def user_query():
     data = dict(request.form)
     
 

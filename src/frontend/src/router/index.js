@@ -7,6 +7,7 @@ import Register from '../components/Register.vue'
 import Game from '../components/Game.vue'
 import Community from '../components/Community.vue'
 import Center from '../components/Center.vue'
+import Retrieve from '../components/Retrieve.vue'
 
 import Level1 from '../components/game/level1.vue'
 import Level2 from '../components/game/level2.vue'
@@ -53,6 +54,11 @@ export default new Router({
       path: '/community',
       name: 'Community',
       component: Community
+    },
+    {
+      path: '/Retrieve',
+      name: 'Retrieve',
+      component: Retrieve
     }
   ]
 });
