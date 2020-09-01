@@ -7,11 +7,20 @@
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
-        <el-col :span="20"></el-col>
-        <el-col :span="2">
+        <el-col :span="24"></el-col>
+        <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
           <el-menu-item index="2">
-            <el-button type="text" @click.native="login" v-if="!this.isLogin">{{ loginText }}</el-button>
-            <el-button type="text" @click.native="exitLogin" v-if="this.isLogin">{{ loginText }}</el-button>
+            <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn">登录</el-button>
+          </el-menu-item>
+        </el-col>
+        <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
+          <el-menu-item index="3">
+            <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn">注册</el-button>
+          </el-menu-item>
+        </el-col>
+        <el-col :span="3" type="flex" justify="end" v-if="this.isLogin">
+          <el-menu-item index="4">
+            <el-button type="text" @click.native="exitLogin" v-if="this.isLogin">退出登录</el-button>
           </el-menu-item>
         </el-col>
       </el-row>
@@ -21,9 +30,7 @@
     </div>
     <div class="login_form" > <!--style="background-color: #663333;"-->
       <el-button class="main_btn" @click.native="game" type="primary" round>选关</el-button>
-      <el-button class="main_btn" @click.native="center" type="primary" round>个人中心</el-button>
       <el-button class="main_btn" @click.native="community" type="primary" round>社区</el-button>
-      <el-button class="main_btn" @click.native="register" type="primary" round>注册</el-button>
     </div>
     <div class="back_label"></div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
@@ -69,7 +76,7 @@
       },
       isLogin: {
         get: function() {
-          return this.$route.query.isLogin
+          return this.loginStatus
         },
         set: function(newValue) {
           this.loginStatus = newValue
@@ -96,7 +103,8 @@
         this.$router.push('/login');
       },
       exitLogin() {
-        this.$router.push('/');
+        this.loginStatus = false;
+        localStorage.setItem('Authorization', '');
       },
       game() {
         this.$router.push({path:'/game', query:{isLogin: true} });
@@ -121,6 +129,12 @@
       }
     },
     mounted() {
+      let authorization = localStorage.getItem('Authorization');
+      if (authorization)
+        this.loginStatus = true;
+      else
+        this.loginStatus = false;
+
       if (window.history && window.history.pushState) {
         history.pushState(null, null, document.URL);
         window.addEventListener('popstate', this.goBack, false);
@@ -191,5 +205,11 @@
     -o-filter: blur(15px);
     -ms-filter: blur(15px);
     filter: blur(15px);
+  }
+  .nav_btn {
+    width: 40%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
   }
 </style>

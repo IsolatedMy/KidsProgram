@@ -48,6 +48,16 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 	+ 登录和注册：将原本的登录和注册按钮搬到导航栏中
 + 修改了`Login.vue`中`$router.push`的传参方式从`query`修改成了`param`。之所以这样做，是因为希望在`mounted`阶段就能够访问传入的参数，但是利用query传递的方式并不起效。同时，`query`的方式会将传入参数附在链接上，从安全性上考虑也并不合适。
 
+**9.1**
+
++ 删除了源代码中一些不知为什么使用的代码块
+
+	+ 在部分页面中`created`部分中对`localStorage`的访问
+	+ 在`Main.Vue`的ccs中`qxs-ic-user`和`qxs-ic-password`不知道是什么用处
+	+ `Login.vue`中的`testShow`变量不知道是用来做什么的
+
+	
+
 ## 注意事项
 
 + pip包管理器所需要安装的包有：`Flask`,`Flask_CORS`, `Flask_HTTPAuth`, `pymysql`和`cryptography`。

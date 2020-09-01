@@ -4,7 +4,10 @@ from flask import Flask, request, jsonify, make_response
 import pymysql
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
+
 import re
+import time 
+import hashlib
 
 app = Flask(__name__)
 
@@ -24,15 +27,17 @@ auth = HTTPBasicAuth()
 
 
 @auth.verify_password
-def verify_password(username_token):
-    username_token = request.headers.get('Token')
-    if username_token == '':
+def verify_password(auth_token):
+    auth_token = request.headers.get('Token')
+    if auth_token == '':
         return False
     else:
-        # check token valid :
-        # currnet_user = user.verify_auth_token(username_token)
-        # return currnet_user is not None
-        return True
+        sql = "select * from user where token = '{0}'".format(auth_token)
+        res = func(sql, 'l')
+        if res:
+            return True
+        else:
+            return False
 
 @auth.error_handler
 def auth_error():
@@ -86,7 +91,13 @@ def user_login():
     if res and res[2] == data['password']:
         # token = user.generate_auth_token()
         # return token
-        return username
+        currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        sql = "update user set login_time = '{0}' where username='{1}'".format(currentTime, username)
+        res = func(sql, 'w')
+        token = hashlib.md5((str(username) + currentTime).encode()).hexdigest()
+        sql = "update user set token = '{0}' where username='{1}'".format(token, username)
+        res = func(sql, 'w')
+        return token
     else:
         # return null
         return '<b>Login Failed</b>'

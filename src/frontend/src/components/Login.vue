@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
       <el-row type="flex">
         <el-col :span="2">
           <el-menu-item index="1" @click.native="main">
@@ -21,11 +21,14 @@
     <div class="back_label"></div>
     <div class="login_form">
       <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
-      <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
-      <el-button class="login_btn" @click.native="userlogin" type="primary" round :loading="isBtnLoading">{{loginText}}</el-button>
-      <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <el-button class="login_btn" @click.native="retrieve" type="primary" round :loading="isBtnLoading">找回密码</el-button>
-      <el-button class="login_btn" @click.native="retn" type="primary" round :loading="isBtnLoading">返回</el-button>
+      <el-input type="password" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
+      <el-row>
+        <el-button class="login_btn" @click.native="userlogin" type="primary" round><span class="btn_text">登录</span></el-button>
+        <el-button class="login_btn" @click.native="register" type="primary" round><span class="btn_text">注册</span></el-button>
+      </el-row>
+      <el-row>
+        <a @click="retrieve()"><span class="btn_text">找回密码</span></a>
+      </el-row>
     </div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
       <span style="color: #000099; left: 30%;" @click="userlogin" >本网站问题请邮件咨询...</span>
@@ -50,7 +53,8 @@
         isBtnLoading: false,
         isLogin: false,
         loginText: "登录",
-        testShow: true
+        testShow: true,
+        activeIndex: '1'
       }
     },
     created () {
@@ -147,6 +151,9 @@
       },
       retrieve() {
         this.$router.push('/retrieve');
+      },
+      main() {
+        this.$router.push('/');
       }
     }
   }
@@ -200,13 +207,14 @@
     height: 100%;
   }
   .login_btn {
-    width: 50%;
-    font-size: 20px;
+    width: 30%;
+    font-size: 10px;
     margin-top: 20px;
-    background: -webkit-linear-gradient(left, #000099, #2154FA); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, #000099, #2154FA); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, #000099, #2154FA); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, #000099 , #2154FA); /* 标准的语法 */
     filter: brightness(1.4);
+  }
+  .btn_text {
+    display: flex;
+    justify-content: center;
   }
 </style>

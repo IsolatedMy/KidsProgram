@@ -1,5 +1,20 @@
 <template>
   <div>
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+      <el-row type="flex">
+        <el-col :span="2">
+          <el-menu-item index="1" @click.native="main">
+            <i class="el-icon-s-home"></i>
+          </el-menu-item>
+        </el-col>
+        <el-col :span="20"></el-col>
+        <el-col :span="2">
+          <el-menu-item index="2">
+
+          </el-menu-item>
+        </el-col>
+      </el-row>
+    </el-menu>
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
@@ -15,7 +30,6 @@
           <el-col><el-button round>5</el-button></el-col>
           <el-col><el-button round>6</el-button></el-col>
         </el-row>
-        <el-button icon="el-icon-switch-button" @click.native="retn" type="primary" id="ret" round :loading="isBtnLoading">返回</el-button>
         <div style="margin-top: 10px">
       </div>
         <span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
@@ -27,7 +41,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      activeIndex: '1',
+      loginStatus: false
+    }
+  },
   methods: {
+    main() {
+      this.$router.push('/');
+    },
     level1() {
       this.$router.push('/game/level1');
     },
@@ -37,6 +60,13 @@ export default {
     level2() {
       this.$router.push('/game/level2');
     }
+  },
+  mounted() {
+    let authorization = localStorage.getItem('Authorization');
+    if (authorization)
+      loginStatus = true;
+    else
+      loginStatus = false;
   }
 }
 </script>

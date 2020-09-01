@@ -21,6 +21,10 @@ python3 app.py
 + 修改`backend/app.py`中的`pymysql.connect`语句，将其中的cmy和123456（可能是其他值）修改成自己MySQL中的用户名和密码。之后执行python文件即可让后端开始运行。
 + 当前Falsk程序运行在localhost:8000下，前端发送消息请向这一端口发送信息。
 + 每次修改数据库的定义时，需要手动删除mysql中的数据库，并重新运行model.sql
++ 目前验证token的思路
+	+ 首先，在登录时，前端发送`password`和`username`到后端。后端对`password`和当前时间组成的字符串进行md5加密生成`token`，将其返回前端，并**保存在后端**
+	+ 前端需要访问内容时，将`token`放在请求头部。后端在数据库中查找后，确认用户对应元组，将其信息放回。
+	+ 问题在于这里服务器端需要保存`token`，而我所了解到的`token`实现方式在后端是不需要保存的。目前查到的是考虑使用RSA加密算法，但是没空实现。
 
 ### 端口
 
@@ -49,6 +53,8 @@ python3 app.py
 |role|权限（角色）|Enum('U','A')|默认为'U'，代表用户(user)权限；'A'代表管理员(Administrator)权限|
 |create_time|创建时间|DATETIME|非空|
 |login_state|登录状态|Enum('N', 'Y')|非空|
+|login_time|登录时间|DATETIME||
+|token|令牌，验证登录|Varchar(40)||
 |email|电子邮箱|varchar(45)| |
 |phone|电话号码|int| |
 

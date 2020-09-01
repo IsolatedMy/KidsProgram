@@ -10,8 +10,7 @@
         <el-col :span="20"></el-col>
         <el-col :span="2">
           <el-menu-item index="2">
-            <el-button type="text" @click.native="login" v-if="!this.isLogin">{{ loginText }}</el-button>
-            <el-button type="text" v-if="this.isLogin">{{ loginText }}</el-button>
+
           </el-menu-item>
         </el-col>
       </el-row>
@@ -19,13 +18,15 @@
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
-    <div class="login_form">
-      <el-input type="text" v-model="userName" v-show="testShow" class="qxs-ic_user" placeholder="用户名"/>
-      <el-input type="text" v-model="password" v-show="testShow" class="qxs-ic_password" placeholder="密码"/>
-    </div>
     <div class="back_label"></div>
+    <div class="login_form">
+      <el-input type="text" v-model="userName" class="qxs-ic" placeholder="用户名"/>
+      <el-input type="text" v-model="retrieveKey" class="qxs-ic" placeholder="电子邮箱/手机号"/>
+      <el-input type="password" v-model="newPassword" class="qxs-ic" placeholder="新密码"/>
+      <el-input type="password" v-model="newPasswordAgain" class="qxs-ic" placeholder="重复新密码"/>
+      <el-button class="retrieve_btn" @click.native="retrieve_password"><span>确定</span></el-button>
+    </div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
-      <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
     <div style="margin-top: 5px; position: absolute; top: 645px; left: 44%;">
       <!--<span style="float: right; color: #A9A9AB; left: 20px;">版权归属@软工苟命组</span>-->
@@ -41,17 +42,25 @@
     data() {
       return {
         userName: '',
-        password: '',
-        isBtnLoading: false,
-        isLogin: false,
-        loginText: "登录",
-        testShow: true
+        retrieveKey: '',
+        newPassword: '',
+        newPasswordAgain: '',
+        loginStatus: false,
+        activeIndex: '1'
       }
     },
     created () {
-      if(JSON.parse( localStorage.getItem('user')) && JSON.parse( localStorage.getItem('user')).userName){
-        this.userName = JSON.parse( localStorage.getItem('user')).userName;
-        this.password = JSON.parse( localStorage.getItem('user')).password;
+
+    },
+    mounted () {
+      let authorization = localStorage.getItem('Authorization');
+      if (authorization) {
+        this.loginStatus = true;
+      } else {
+        this.loginStatus = false;
+      }
+      if (this.loginStatus) {
+        this.$message.error("错误代码:00001");
       }
     },
     computed: {
@@ -66,32 +75,28 @@
         else {
           return "登录";
         }
-      },
-      isLogin() {
-        return this.$route.query.isLogin
       }
     },
     methods: {
-      register() {
-        this.$router.push('/register');
-      },
-      login() {
-        this.$router.push('/login');
-      },
-      game() {
-        this.$router.push('/game');
-      },
-      community() {
-        this.$router.push('/community');
-      },
-      center() {
-        this.$router.push('/center');
-      },
       main() {
         this.$router.push('/');
       },
-      nativeHandler() {
-        alert("hello");
+      retrieve_password() {
+        let _this = this;
+        let newPassword = this.newPassword;
+        let newPasswordAgain = this.newPasswordAgain;
+        if (newPassword != newPasswordAgain) {
+          this.$message.warning('两次输入的新密码不一致');
+          return;
+        }
+        if (!this.userName) {
+          this.$message.warning("请输入用户名");
+          return;
+        }
+        if (!this.retrieveKey) {
+          this.$message.warning('请根据注册情况输入你的手机号或者邮箱');
+          return;
+        }
       }
     }
   }
@@ -108,16 +113,10 @@
     padding-left: 10%;
     padding-right: 10%;
   }
-  .qxs-ic_user {
-    background: url("../assets/ic_user.png") no-repeat;
-    background-size: 13px 15px;
-    background-position: 3%;
-  }
-  .qxs-ic_password {
-    background: url("../assets/ic_password.png") no-repeat;
-    background-size: 13px 15px;
-    background-position: 3%;
+  .qxs-ic {
     margin-bottom: 20px;
+    background-size: 20px 20px;
+    background-position: 3%;
   }
   .login_logo {
     height: 100%;
@@ -167,5 +166,16 @@
     -o-filter: blur(15px);
     -ms-filter: blur(15px);
     filter: blur(15px);
+  }
+  .retrieve_btn {
+    width: 40%;
+    font-size: 20px;
+    margin-top: 20px;
+    background: linear-gradient(to right, #000099 , #2154FA); /* 标准的语法 */
+    filter: brightness(1.4);
+  }
+  .btn_text {
+    display: flex;
+    justify-content: center;
   }
 </style>
