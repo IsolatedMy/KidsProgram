@@ -36,13 +36,13 @@ export default {
   mounted() {
     this.$loadScript('/static/blockly/blockly_compressed.js')
       .then(() => (
+        this.$loadScript('/static/blockly/en.js')
+      ))
+      .then(() => (
         this.$loadScript('/static/blockly/blocks_compressed.js')
       ))
       .then(() => (
         this.$loadScript('/static/blockly/javascript_compressed.js')
-      ))
-      .then(() => (
-        this.$loadScript('/static/blockly/en.js')
       ))
       .then(() => (
         this.$loadScript('/static/game/js/global_variable.js')
