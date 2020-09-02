@@ -29,6 +29,7 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def verify_password(auth_token):
     auth_token = request.headers.get('Token')
+    print('Hello')
     if auth_token == '':
         return False
     else:
@@ -103,9 +104,16 @@ def user_login():
         return '<b>Login Failed</b>'
 
 # 查询方法
-@app.route('/user/query/', methods=['POST'])
+@app.route('/user/query/', methods=['GET', 'POST'])
 def user_query():
-    data = dict(request.form)
+    data = request.headers.get('Token')
+    sql = "select * from user where token = '{0}'".format(data)
+    res = func(sql, 'l')
+    if not res:
+        return ''
+    else:
+        return jsonify(res)
+    
     
 
 # 注册方法

@@ -19,19 +19,24 @@
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
     <div class="login_form">
-      <div class="button-group">
+      <div>
         <el-row type="flex">
-          <el-col><el-button @click.native="level1" round>1</el-button></el-col>
-          <el-col><el-button @click.native="level2" round>2</el-button></el-col>
-          <el-col><el-button round>3</el-button></el-col>
+          <el-col><el-button class="game_btn" @click.native="level1" round>1</el-button></el-col>
+          <el-col>
+            <el-button class="game_btn" @click.native="level2" v-if="loginStatus" round>2</el-button>
+            <el-button class="game_btn_without" @click.native="hint" v-else round>2</el-button>
+          </el-col>
+          <el-col>
+            <el-button class="game_btn" v-if="loginStatus" round>3</el-button>
+            <el-button class="game_btn_without" v-else round>3</el-button>
+          </el-col>
         </el-row>
         <el-row type="flex">
-          <el-col><el-button round>4</el-button></el-col>
-          <el-col><el-button round>5</el-button></el-col>
-          <el-col><el-button round>6</el-button></el-col>
+          <el-col><el-button class="game_btn" :disabled="!loginStatus" round>4</el-button></el-col>
+          <el-col><el-button class="game_btn" :disabled="!loginStatus" round>5</el-button></el-col>
+          <el-col><el-button class="game_btn" :disabled="!loginStatus" round>6</el-button></el-col>
         </el-row>
-        <div style="margin-top: 10px">
-      </div>
+        <div style="margin-top: 10px"></div>
         <span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
     </div>
@@ -51,6 +56,9 @@ export default {
     main() {
       this.$router.push('/');
     },
+    back() {
+      this.$router.push(-1);
+    },
     level1() {
       this.$router.push('/game/level1');
     },
@@ -59,14 +67,20 @@ export default {
     },
     level2() {
       this.$router.push('/game/level2');
+    },
+    hint() {
+      this.$message.warning("未登录状态下不可试玩该关卡");
     }
+  },
+  created() {
+
   },
   mounted() {
     let authorization = localStorage.getItem('Authorization');
     if (authorization)
-      loginStatus = true;
+      this.loginStatus = true;
     else
-      loginStatus = false;
+      this.loginStatus = false;
   }
 }
 </script>
@@ -100,13 +114,14 @@ export default {
     text-align: center;
     filter: brightness(1.4);
   }
+  .game_btn {
+    margin-bottom: 20px;
+  }
+  .game_btn_without {
+    margin-bottom: 20px;
+    background-color: gray;
+  }
   #ret {
     margin-top: 20px;
-  }
-  .button-group{
-    position: absolute;
-    left: 0; top: 0; right: 0; bottom: 0;
-    margin: auto;
-    height: 100%;
   }
 </style>

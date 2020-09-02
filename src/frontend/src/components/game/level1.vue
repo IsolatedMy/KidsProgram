@@ -1,5 +1,17 @@
 <template>
   <div id="maze">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+      <el-row type="flex">
+        <el-col :span="2">
+          <el-menu-item index="1" @click.native="back">
+            <i class="el-icon-back"></i>
+          </el-menu-item>
+        </el-col>
+        <el-col type="flex" justify="end">
+          level1
+        </el-col>
+      </el-row>
+    </el-menu>
     <!--toolbox-->
     <xml id="toolbox" style="display: none">
         <block type="move_forward"></block>
@@ -30,7 +42,16 @@
 export default {
   data: function () {
     return {
-      level: 1
+      level: 1,
+      activeIndex: '1'
+    }
+  },
+  methods: {
+    main() {
+      this.$router.push('/');
+    },
+    back() {
+      this.$router.back(-1);
     }
   },
   mounted() {

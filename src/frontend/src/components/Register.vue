@@ -71,10 +71,14 @@
             phone: this.phone
           })
         })
-        .then(function (response) {
+        .then((response) => {
           console.log(response);
           let token = response.data
-          alert(token);
+          this.$message({
+            message: '注册成功',
+            type: 'success'
+          })
+          this.$router.push('/');
         })
         .catch(function (error) {
           console.log(error);

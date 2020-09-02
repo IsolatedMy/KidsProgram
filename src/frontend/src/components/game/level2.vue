@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <div id="maze">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+      <el-row type="flex">
+        <el-col :span="2">
+          <el-menu-item index="1" @click.native="back">
+            <i class="el-icon-back"></i>
+          </el-menu-item>
+        </el-col>
+        <el-col type="flex" justify="end">
+          level2
+        </el-col>
+      </el-row>
+    </el-menu>
     <!--toolbox-->
     <xml id="toolbox" style="display: none">
         <block type="move_forward"></block>
@@ -9,15 +21,16 @@
       <div class="row">
         <div class="col-6 d-flex flex-column">
           <div class="mx-auto" style="position:relative; width:300px; height:300px;">
-            <canvas id="game" width="300px" height="300px" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
-            <canvas id="game_bg" width="300px" height="300px" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
+            <canvas id="game" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
+            <canvas id="game_bg" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
           </div>
-          <div>
+          <div style="margin-top:auto">
             <button type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
             <button type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
           </div>
         </div>
         <div id="blockly" class="col-6 d-flex flex-column vh-100">
+            <div class="alert alert-primary"><span id="capacity"></span> blocks left</div>
             <div id="blockly-editor" class="flex-grow-1"></div>
         </div>
       </div>
@@ -28,7 +41,18 @@
 <script>
 export default {
   data: function () {
-    return {}
+    return {
+      level: 2,
+      activeIndex: '1'
+    }
+  },
+  methods: {
+    main() {
+      this.$router.push('/');
+    },
+    back() {
+      this.$router.back(-1);
+    }
   },
   mounted() {
     this.$loadScript('/static/blockly/blockly_compressed.js')
