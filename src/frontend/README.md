@@ -96,3 +96,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 # 说明
 
++ 登录实现以及登录状态的保存
+	+ 登录页面显然是`\login\`。利用数据库中预先添加的用户或者直接创建用户就可以登录了，详细操作相信不用说明也能明白。在登录之后，后端会发送回一个将用户名和登录时间利用md5加密的token，关于这一个问题在后端注意事项中有提到。
+	+ 关于登录状态的保存。登录状态使用的是`localStorage`数据项中的`Authorization`来说明。当它被设置为空时，说明此时没有用户登录。而当它被设置为token的值时，说明此时有用户登录。而在单个页面中，在`mounted`阶段通过读取`localStorage.getItem('Authorization')`项设置页面的data变量`loginStatus`来确定登录状态。
+	+ 关于登录状态的退出。按照前面所说的，只需要修改`localStorage`的`Authorization`项为空，并且刷新就可以退出登录状态。但是存在一个问题：如果在退出登录状态之后又利用浏览器的后退键会发生什么。为此我在`mounted`阶段添加了事件监听`EventListener`用来监听popstate事件的发生。如果浏览器回退的话，调用函数使之无法倒退。具体参考[链接](https://blog.csdn.net/qq_26282869/article/details/88389372)。
+

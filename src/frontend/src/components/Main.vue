@@ -9,18 +9,19 @@
         </el-col>
         <el-col :span="24"></el-col>
         <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
-          <el-menu-item index="2">
-            <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn">登录</el-button>
-          </el-menu-item>
-        </el-col>
-        <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
           <el-menu-item index="3">
             <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn">注册</el-button>
           </el-menu-item>
         </el-col>
         <el-col :span="3" type="flex" justify="end" v-if="this.isLogin">
           <el-menu-item index="4">
-            <el-button type="text" @click.native="exitLogin" v-if="this.isLogin">退出登录</el-button>
+              {{ userName }}
+          </el-menu-item>
+        </el-col>
+        <el-col :span="3" type="flex" justify="end">
+          <el-menu-item index="2">
+            <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn">登录</el-button>
+            <el-button type="text" @click.native="exitLogin" v-else >退出登录</el-button>
           </el-menu-item>
         </el-col>
       </el-row>
@@ -103,18 +104,19 @@
         this.$router.push('/login');
       },
       exitLogin() {
-        this.loginStatus = false;
         localStorage.setItem('Authorization', '');
+        location.reload();
+        this.$message.info("登录状态已注销");
       },
       game() {
-        this.$router.push({path:'/game', query:{isLogin: true} });
+        this.$router.push('/game');
       },
       community() {
         this.$router.push('/community');
       },
       center() {
         if (this.isLogin)
-          this.$router.push({path:'/center', query:{isLogin: true}});
+          this.$router.push('/center');
         else
           this.$message.error("请先登录");
       },
@@ -122,7 +124,7 @@
         this.$router.push('/');
       },
       nativeHandler() {
-        alert("hello");
+
       },
       goBack() {
         this.$router.replace({path: '/'});
@@ -138,6 +140,19 @@
       if (window.history && window.history.pushState) {
         history.pushState(null, null, document.URL);
         window.addEventListener('popstate', this.goBack, false);
+      }
+      if (this.loginStatus) {
+        this.$axios({
+          methods: "post",
+          url: this.HOST + "/user/query/",
+          data: this.$qs.stringify({username: 'cmy'})
+        })
+        .then((response) => {
+          this.userName = response.data[1];
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       }
     },
     destroyed() {

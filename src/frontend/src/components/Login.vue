@@ -124,16 +124,22 @@
               password: this.password
             })
           })
-          .then(function (response) {
+          .then((response)=>{
             console.log(response);
             let token = response.data
             _this.changeLogin({Authorization: token})
             if (token == '<b>Login Failed</b>')
             {
-              alert('登陆失败！');
+              this.$message({
+                message: '登录失败',
+                type: 'warning'
+              });
             }
             else{
-              alert('登陆成功！');
+              this.$message({
+                message: '登录成功',
+                type: 'success'
+              });
               _this.$router.push({path:'/', query:{isLogin: true}});
             }
           })
