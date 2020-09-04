@@ -85,10 +85,6 @@
         let _this = this;
         let newPassword = this.newPassword;
         let newPasswordAgain = this.newPasswordAgain;
-        if (newPassword != newPasswordAgain) {
-          this.$message.warning('两次输入的新密码不一致');
-          return;
-        }
         if (!this.userName) {
           this.$message.warning("请输入用户名");
           return;
@@ -97,6 +93,49 @@
           this.$message.warning('请根据注册情况输入你的手机号或者邮箱');
           return;
         }
+        if (!this.newPassword) {
+          this.$message.warning('请输入新密码');
+          return;
+        }
+        if (!this.newPasswordAgain) {
+          this.$message.warning('请再次输入新密码');
+          return;
+        }
+        if (this.newPassword != this.newPasswordAgain) {
+          this.$message.warning('两次输入的新密码不一致');
+          return;
+        }
+        let pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        let isEmail = pattern.test(this.retrieveKey);
+        let phonePattern = /^1\d\d\d\d\d\d\d\d\d\d$/;
+        let isPhone = phonePattern.test(this.retrieveKey);
+        if (!isEmail && !isPhone) {
+          this.$message.warning('请输入正确格式的电子邮箱或者手机号');
+          return;
+        }
+        _this.$axios({
+          method: "post",
+          url: this.HOST + "/user/retrieve/",
+          data: this.$qs.stringify({
+            username: this.userName,
+            password: this.newPassword,
+            key: this.retrieveKey
+          })
+        })
+        .then((response) =>{
+          let data = response.data;
+          console.log(data);
+          if (data == '<script>alert("找回密码失败")</scrip' + 't>') {
+            this.$message.warning("找回密码失败，请检查输入格式");
+          }
+          else {
+            this.$message.success("找回密码成功");
+            this.$router.push('/');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       }
     }
   }

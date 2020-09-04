@@ -43,7 +43,18 @@ export default {
   data: function () {
     return {
       level: 1,
-      activeIndex: '1'
+      activeIndex: '1',
+      init_game: {
+        'dir': 2,
+        'x': 0,
+        'y': 0,
+        //1 indicata start,2 indicate destination,3 indicate obstacle
+        'map': [
+          [1,0,0],
+          [0,0,0],
+          [2,0,0]
+        ]
+      }
     }
   },
   methods: {
@@ -55,6 +66,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.init_game);
     this.$loadScript('/static/blockly/blockly_compressed.js')
       .then(() => (
         this.$loadScript('/static/blockly/en.js')
@@ -86,5 +98,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .game_title {
+    position: absolute;
+    margin-bottom: 13px;
+    margin-top: 13px;
+    margin-left: 48%;
+    font-size: 25px;
+  }
 </style>

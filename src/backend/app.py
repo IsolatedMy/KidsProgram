@@ -114,6 +114,29 @@ def user_query():
     else:
         return jsonify(res)
     
+# 找回密码
+@app.route('/user/retrieve/', methods=['POST'])
+def user_retrieve():
+    data = dict(request.form)
+    username = data['username']
+    password = data['password']
+    p1 = r'([^@]+)@([^@]+)\.([^@]+)$'
+    p2 = r'[0-9]+$'
+    key = data['key']
+    if not key:
+        return '<script>alert("找回密码失败")</script>'
+    ans1 = re.match(p1, key)
+    ans2 = re.match(p2, key)
+    if not ans1 and not ans2:
+        return '<script>alert("找回密码失败")</script>'
+    else:
+        if ans1:
+            sql = "update user set password = '{0}' where username = '{1}' and email = '{2}'".format(password, username, key)
+        elif ans2:
+            sql = "update user set password = '{0}' where username = '{1}' and phone = '{2}'".format(password, username, key)
+        res = func(sql, 'w')
+    return ''
+
     
 
 # 注册方法
@@ -127,7 +150,7 @@ def user_register():
     if check:
         return '<script>alert("用户名已存在")</script>'
     
-    p = r'([^@]+)@([^@]+)\.([^@]+)'
+    p = r'([^@]+)@([^@]+)\.([^@]+)$'
     email = data['email']
     if not email:
         return '<script>alert("邮箱不能为空")</script>'

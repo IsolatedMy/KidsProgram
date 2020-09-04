@@ -43,7 +43,22 @@ export default {
   data: function () {
     return {
       level: 2,
-      activeIndex: '1'
+      activeIndex: '1',
+      init_game: {
+        'dir': 2,
+        'x': 0,
+        'y': 0,
+        //1 indicata start,2 indicate destination,3 indicate obstacle
+        'map': [
+          [0,0,0,0,0,0,0],
+          [0,3,0,0,0,2,0],
+          [0,3,3,0,3,0,0],
+          [0,0,0,0,0,3,0],
+          [0,1,0,0,0,3,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0]
+        ]
+      }
     }
   },
   methods: {

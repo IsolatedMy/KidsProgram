@@ -46,9 +46,9 @@ on update no action
 insert into user 
 (user_id, username, password, role, create_time, login_state, email, phone) 
 values 
-(1, 'cmy', '123456', 'U', NOW(), 'N', 'eqw2@', '110');
+(1, 'cmy', '123456', 'U', NOW(), 'N', '1015547300@qq.com', '110');
 
 insert into user 
 (user_id, username, password, role, create_time, login_state, email, phone) 
 values 
-(2, 'lbh', '12341234', 'U', NOW(), 'N', 'fbk@', '111');
+(2, 'lbh', '12341234', 'U', NOW(), 'N', 'lbh@sina.com', '111');
