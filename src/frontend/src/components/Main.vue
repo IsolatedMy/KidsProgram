@@ -160,7 +160,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .qxs-ic_user {
     background: url("../assets/ic_user.png") no-repeat;
     background-size: 13px 15px;

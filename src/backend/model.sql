@@ -22,7 +22,6 @@ create table if not exists kidsprog.user (
 create table if not exists kidsprog.progress (
 user_id int unsigned not null,
 unlock_progress int not null,
-finish_progress int not null,
 primary key (user_id),
 unique index uk_id (user_id ASC) visible,
 constraint fk_user_id1 foreign key (user_id) 

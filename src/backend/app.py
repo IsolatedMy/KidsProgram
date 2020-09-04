@@ -8,6 +8,17 @@ from flask_httpauth import HTTPBasicAuth
 import re
 import time 
 import hashlib
+from sendEmail import sendMail
+
+# 发送纯文本
+import smtplib
+# 发送标题
+from email.header import Header
+# 邮件正文
+from email.mime.text import MIMEText
+import random 
+
+code = ''
 
 app = Flask(__name__)
 
@@ -137,8 +148,6 @@ def user_retrieve():
         res = func(sql, 'w')
     return ''
 
-    
-
 # 注册方法
 @app.route('/user/register/', methods=["POST"])
 def user_register():
@@ -148,13 +157,14 @@ def user_register():
     check = func(check_sql, 'r')
     print(check)
     if check:
-        return '<script>alert("用户名已存在")</script>'
+        return 'Code:201'
     
     p = r'([^@]+)@([^@]+)\.([^@]+)$'
     email = data['email']
-    if not email:
-        return '<script>alert("邮箱不能为空")</script>'
-    if re.search(p, email, re.M|re.I):
+    phone = data['phone']
+    if not email and not phone:
+        return 'Code:202'
+    if email and re.search(p, email, re.M|re.I):
         orgnization = re.search(p, email, re.M|re.I).group(2)
         post = re.search(p, email, re.M|re.I).group(3)
         valid_mail = ['qq', '163', 'gmail', 'sina']
@@ -166,10 +176,49 @@ def user_register():
     sql = "insert into user (username, password, role, create_time, login_state, email, phone)" \
          " values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
     res = func(sql,m='w')
+    sql = "insert into progress values ('{0}', 1)".format(username)
+    res = func(sql,m='w')
     if res:
         return '<b>alert("添加成功")</b>'
     else:
-        return '<b>alert("添加失败")</b>'
+        return 'Code:210'
+
+@app.route('/progress/update/', methods=["POST"])
+def progree_udpate():
+    data = dict(request.form)
+    username = data['username']
+    sql = "select * from user where username = '{0}'".format(username)
+    res = func(sql, m="l")
+    if not res:
+        return('Code:301')
+    user_id = res[0]
+    progress = data['progress']
+    sql = "update progress set unlock_progress = {0} where user_id = {1}".format(progress, user_id)
+    res = func(sql, m="w")
+    if res:
+        return 'Code:300'
+    else:
+        return 'Code:302'
+
+@app.route('/progress/send/',  methods=["POST"])
+def progress_send():
+    data = dict(request.form)
+    email = data['email']
+    code = random.sample(list(range(9, 100)), 3)
+    code = lsit(map(lambda x: str(x), code))
+    code = ''.join(code)
+    
+    mail_user = "1015547300@qq.com"
+    mail_pwd = "progywkwgdogbchd"
+    mail_sender = "1015547300@qq.com"
+    mail_receiver = email
+
+    email_content = "您的验证码为：%s" % code 
+    email_title = "少儿编程游戏"
+
+    sendMail(mail_user, mail_pwd, mail_sender, maill)
+
+
 
 if __name__ == '__main__':
     app.run (debug=True, host='localhost', port='8000')

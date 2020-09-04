@@ -36,7 +36,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .login_logo {
     height: 100%;
   }

@@ -1,15 +1,31 @@
 <template>
   <div>
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+      <el-row type="flex">
+        <el-col :span="2">
+          <el-menu-item index="1" @click.native="main">
+            <i class="el-icon-s-home"></i>
+          </el-menu-item>
+        </el-col>
+        <el-col :span="20"></el-col>
+        <el-col :span="2">
+          <el-menu-item index="2">
+
+          </el-menu-item>
+        </el-col>
+      </el-row>
+    </el-menu>
     <div class="outer_label">
-      <img class="inner_label login_logo" src="../assets/logo.png">
+      <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
+    <div class="back_label"></div>
     <div class="login_form">
-      <el-input type="text" v-model="userName" class="qxs-ic_user" placeholder="用户名"/>
-      <el-input type="text" v-model="password" class="qxs-ic_password" placeholder="密码"/>
-      <el-input type="text" v-model="email" class="qxs-ic_password" placeholder="邮箱"/>
-      <el-input type="text" v-model="phone" class="qxs-ic_password" placeholder="电话"/>
+      <el-input type="text" v-model="userName" class="qxs-ic" placeholder="用户名"/>
+      <el-input type="text" v-model="password" class="qxs-ic" placeholder="密码"/>
+      <el-input type="text" v-model="email" class="qxs-ic" placeholder="邮箱"/>
+      <el-input type="text" v-model="phone" class="qxs-ic" placeholder="电话"/>
+            <el-button class="login_btn" @click.native="send" type="primary" round :loading="isBtnLoading">发送验证码</el-button>
       <el-button class="login_btn" @click.native="register" type="primary" round :loading="isBtnLoading">注册</el-button>
-      <el-button class="login_btn" @click.native="retn" type="primary" round :loading="isBtnLoading">返回</el-button>
       <div style="margin-top: 10px">
         <span style="color: #000099;" @click="register">本网站问题请邮件咨询...</span><span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
@@ -30,6 +46,7 @@
         password: '',
         email:'',
         phone:'',
+        activeIndex: '1',
         isBtnLoading: false
       }
     },
@@ -87,25 +104,41 @@
       },
       retn() {
         this.$router.go(-1);
+      },
+      main() {
+        this.$router.push('/');
+      },
+      send() {
+        let pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (!this.email) {
+          this.$message.warning('请输入电子邮箱');
+          return;
+        }
+        let isEmail = pattern.test(this.email);
+        if (!isEmail) {
+          this.$message.warning("请输入正确格式的电子邮箱");
+          return;
+        }
       }
     }
   }
 </script>
-<style>
+<style scoped>
   .login_form {
-    padding-top: 10%;
+    position: absolute;;
+    top: 200px;
+    right: 30%;
+    height: 400px;
+    width: 40%;
+    padding-top: 5%;
     padding-left: 10%;
     padding-right: 10%;
+    z-index: 1;
   }
-  .qxs-ic_user {
+  .qxs-ic {
     margin-bottom: 20px;
     background-size: 20px 20px;
     background-position: 3%;
-  }
-  .qxs-ic_password {
-    background-size: 20px 20px;
-    background-position: 3%;
-    margin-bottom: 20px;
   }
   .login_logo {
     height: 100%;
@@ -119,5 +152,14 @@
     background: -moz-linear-gradient(right, #000099, #2154FA); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, #000099 , #2154FA); /* 标准的语法 */
     filter: brightness(1.4);
+  }
+  .back_label {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    z-index: 0;
+    background-image: url("../assets/bg1.jpg");
   }
 </style>

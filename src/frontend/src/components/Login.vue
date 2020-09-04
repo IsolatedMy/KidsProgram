@@ -164,7 +164,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .login_form {
     position: absolute;;
     top: 200px;
