@@ -33,11 +33,13 @@
       <el-button class="main_btn" @click.native="game" type="primary" round>选关</el-button>
       <el-button class="main_btn" @click.native="community" type="primary" round>社区</el-button>
     </div>
-    <div class="back_label"></div>
-    <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
+    <div class="back_label">
+      <img  style="width: 100%; height: 95%; top: 0;" src="../assets/bg_login.jpg">
+    </div>
+    <div style="position: absolute; top: 102%; left: 44%; margin-top: 20px;">
       <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
-    <div style="margin-top: 5px; position: absolute; top: 645px; left: 44%;">
+    <div style="margin-top: 5px; position: absolute; top: 108%; left: 44%;">
       <!--<span style="float: right; color: #A9A9AB; left: 20px;">版权归属@软工苟命组</span>-->
       <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
     </div>
@@ -195,12 +197,13 @@
   }
   .back_label {
     position: absolute;
-    top: 200px;
+    top: 40%;
     left: 0;
     width: 100%;
     height: 400px;
     z-index: 0;
-    background-image: url("../assets/bg1.jpg");
+   /* background-image: url("../assets/bg1.jpg");
+    background-size: 100%;*/
   }
   .login_form {
     position: absolute;;
