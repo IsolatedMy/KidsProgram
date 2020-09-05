@@ -77,7 +77,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'root', 'szgwhwjsls', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -143,6 +143,10 @@ def user_retrieve():
     if not ans1 and not ans2:
         return '<script>alert("找回密码失败")</script>'
     else:
+        retrieve_verification = data['retrieve_verification']
+        global code_gb
+        if code_gb != retrieve_verification:
+            return 'Code:211'
         if ans1:
             sql = "update user set password = '{0}' where username = '{1}' and email = '{2}'".format(password, username, key)
         elif ans2:
@@ -169,6 +173,27 @@ def progress_send():
     email_title = "少儿编程游戏"
 
     sendMail(mail_user, mail_pwd, mail_sender, mail_receiver,email_content, email_title)
+
+@app.route('/retrieve/send/',  methods=["POST"])
+def progress_retrieve_send():
+    data = dict(request.form)
+    retrieveKey = data['retrieveKey']
+    print(retrieveKey)
+    code = random.sample(list(range(9, 100)), 3)
+    code = list(map(lambda x: str(x), code))
+    code = ''.join(code)
+    global code_gb
+    code_gb = code
+    mail_user = "651423114@qq.com"
+    mail_pwd = "ipzpcmclnedkbdha"
+    mail_sender = "651423114@qq.com"
+    mail_receiver = retrieveKey
+
+    email_content = "您的验证码为：%s" % code 
+    email_title = "少儿编程游戏"
+
+    sendMail(mail_user, mail_pwd, mail_sender, mail_receiver,email_content, email_title)
+
 
 # 注册方法
 @app.route('/user/register/', methods=["POST"])
