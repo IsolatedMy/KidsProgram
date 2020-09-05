@@ -138,6 +138,28 @@
           this.$message.warning("请输入正确格式的电子邮箱");
           return;
         }
+        this.$axios ({
+          method: "post",
+          url: this.HOST + "/user/send/",
+          data: this.$qs.stringify({
+            email: this.email
+          })
+        })
+        .then(
+          (response) => {
+            let data = response.data;
+            if ('Code:300' == data) {
+              this.$message.success("验证码发送成功");
+            } else {
+              this.$message.warning("验证码发送失败");
+            }
+          }
+        )
+        .catch(
+          (error) => {
+            console.log(error);
+          }
+        );
       }
     }
   }
