@@ -17,16 +17,16 @@
         <block type="move_forward"></block>
         <block type="turn"></block>
     </xml>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top:20px">
       <div class="row">
         <div class="col-6 d-flex flex-column">
           <div class="mx-auto" style="position:relative; width:300px; height:300px;">
             <canvas id="game" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
             <canvas id="game_bg" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
           </div>
-          <div style="margin-top:auto">
-            <button type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
-            <button type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
+          <div style="margin-top:0px">
+            <button id="run_btn" type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
+            <button id="reset_btn" type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
           </div>
         </div>
         <div id="blockly" class="col-6 d-flex flex-column vh-100">
@@ -45,18 +45,16 @@ export default {
       level: 2,
       activeIndex: '1',
       init_game: {
-        'dir': 2,
+        'dir': 1,
         'x': 0,
         'y': 0,
         //1 indicata start,2 indicate destination,3 indicate obstacle
         'map': [
-          [0,0,0,0,0,0,0],
-          [0,3,0,0,0,2,0],
-          [0,3,3,0,3,0,0],
-          [0,0,0,0,0,3,0],
-          [0,1,0,0,0,3,0],
-          [0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0]
+          [0, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [3, 3, 3, 0, 0],
+          [2, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]
         ]
       }
     }

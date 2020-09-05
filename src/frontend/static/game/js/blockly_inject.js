@@ -64,6 +64,7 @@ Blockly.JavaScript['turn'] = function(block) {
   return code;
 };
 
+
 //add block highlight functionality
 Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 Blockly.JavaScript.addReservedWords('highlightBlock');

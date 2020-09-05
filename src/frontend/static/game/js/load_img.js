@@ -5,6 +5,8 @@ function loaded() {
   init_canvas();
 };
 
+console.log(game)
+
 img.idle= new Image();
 img.idle.src = '/static/game/sprites/idle.png';
 img.idle.onload = loaded;
@@ -40,7 +42,7 @@ function init_canvas() {
   //start sprite and obstacle and dest
   //sprite, 16x17 -> 50x50
   for( var y = 0;y < grid_count; y++ ) {
-    for( var x = 0;x < grid_count; x++ ) {
+    for( var x = 0;x < grid_col; x++ ) {
       //start
       if( game['map'][y][x] == 1 )
       {

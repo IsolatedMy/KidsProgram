@@ -21,17 +21,18 @@ let level = vue._data.level - 1;
 //game data
 let ctx = elem_game.getContext("2d");
 let ctx_bg = elem_game_bg.getContext("2d");
-let grid_count_array = [5,7];
-let grid_count = grid_count_array[level];
+let grid_count = vue._data.init_game['map'].length;
+let grid_col = vue._data.init_game['map'][0].length;
 let grid_size = 60;
 let grid_pad = 5;
 //canvas size based on grid_count and grid_size
 let canvas_size = grid_count * grid_size;
+let canvas_width = grid_col * grid_size;
 //set canvas size
 elem_game.height = canvas_size;
-elem_game.width = canvas_size;
+elem_game.width = canvas_width;
 elem_game_bg.height = canvas_size;
-elem_game_bg.width = canvas_size;
+elem_game_bg.width = canvas_width;
 let sprite_width = 16;
 let sprite_height = 17;
 let sprite_dest_size = grid_size - 2 * grid_pad;
@@ -67,7 +68,7 @@ let init_game_array = [
 ];
 
 let game = Object.assign({},vue._data.init_game);
-let max_blocks_array = [5,7];
+let max_blocks_array = [3,7];
 let max_blocks = max_blocks_array[level];
 
 //all image
