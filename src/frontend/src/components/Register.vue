@@ -75,6 +75,7 @@
 
 
 
+
 <script>
 
   import { mapMutations } from 'vuex';
@@ -183,6 +184,8 @@
 
         }
 
+        
+
         this.$axios({
 
           method: "post",
@@ -222,6 +225,17 @@
 
             })
 
+          }
+
+          else if (token == 'Code:211'){
+              
+            this.$message({
+
+              message: '验证码错误',
+
+              type: 'warning'
+
+            })
           }
 
           else
