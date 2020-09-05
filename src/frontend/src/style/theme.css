@@ -9,7 +9,7 @@ body {
     top: 0;
     width: 100%;
     height: 220px;
-    background: #ffffff; /* 标准的语法 */
+    /*background: #ffffff; /* 标准的语法 */
     /*background-color: #000099;*/
     text-align: center;
     filter: brightness(1.4);

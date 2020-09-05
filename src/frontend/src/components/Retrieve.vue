@@ -1,16 +1,15 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black;">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main">
+          <el-menu-item index="1" @click.native="main"  style="color: bisque;">
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
         <el-col :span="20"></el-col>
         <el-col :span="2">
           <el-menu-item index="2">
-
           </el-menu-item>
         </el-col>
       </el-row>
@@ -18,17 +17,41 @@
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
-    <div class="back_label"></div>
+     <div class="back1">
+      <img style= "height: 100%; width:100%;" src="../assets/login_bg1.png">
+    </div>
+    <div class="back2">
+      <img style="width: 100%; height: 100%; top:0;" src="../assets/login_bg2.png">
+    </div>
     <div class="login_form">
-      <el-input type="text" v-model="userName" class="qxs-ic" placeholder="用户名"/>
-      <el-input type="text" v-model="retrieveKey" class="qxs-ic" placeholder="电子邮箱/手机号"/>
-      <el-input type="password" v-model="newPassword" class="qxs-ic" placeholder="新密码"/>
-      <el-input type="password" v-model="newPasswordAgain" class="qxs-ic" placeholder="重复新密码"/>
+      <el-input type="text" v-model="userName" class="qxs-ic" placeholder="用户名">
+        <i slot="prefix" style="display: flex; align-items: center;">
+         <img class="icon_login_user" src="../assets/user.png">
+        </i>
+      </el-input>
+      <el-input type="text" v-model="retrieveKey" class="qxs-ic" placeholder="电子邮箱/手机号">
+      <i slot="prefix" style="display: flex; align-items: center;">
+         <img class="icon_login_user" src="../assets/email.png">
+        </i>
+      </el-input>
+      <el-input type="password" v-model="newPassword" class="qxs-ic" placeholder="新密码">
+        <i slot="prefix" style="display: flex; align-items: center;">
+         <img class="icon_login_user" src="../assets/password_new.png">
+        </i>
+      </el-input>
+      <el-input type="password" v-model="newPasswordAgain" class="qxs-ic" placeholder="重复新密码">
+        <i slot="prefix" style="display: flex; align-items: center;">
+         <img class="icon_login_user" src="../assets/password_new.png">
+        </i>
+      </el-input>
       <el-button class="retrieve_btn" @click.native="retrieve_password"><span>确定</span></el-button>
+    </div>
+    <div class="back_label">
+      <img  style="width: 100%; height: 100%; top: 0; border-radius: 10px;" src="../assets/register_bg1.jpg">
     </div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
     </div>
-    <div style="margin-top: 5px; position: absolute; top: 645px; left: 44%;">
+    <div style="margin-top: 5px; position: absolute; top: 110%; left: 44%;">
       <!--<span style="float: right; color: #A9A9AB; left: 20px;">版权归属@软工苟命组</span>-->
       <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
     </div>
@@ -142,9 +165,27 @@
 </script>
 
 <style scoped>
+ .back1 {
+   position: absolute;
+   top: 45%;
+   right: 0;
+   height: 75%;
+   width: 35%;
+   z-index: 0;
+   background: no-repeat;
+ }
+.back2 {
+   position: absolute;
+   top: 75%;
+   left: 0;
+   height: 35%;
+   width: 40%;
+   z-index: 0;
+   background: no-repeat;
+ }
   .login_form {
     position: absolute;;
-    top: 200px;
+    top: 100%;
     left: 30%;
     height: 400px;
     width: 40%;
@@ -167,6 +208,14 @@
     background: #d6780d; /* 标准的语法 */
     filter: brightness(1.4);
   }
+  .icon_login_user {
+    width:16px; 
+    height:15px;
+    background-size: cover;
+    margin-top: 12px;
+    margin-left: 5px;
+    border-width: 0;
+  }
   .outer_label {
     position: relative;
     left: 0;
@@ -180,16 +229,21 @@
   }
   .back_label {
     position: absolute;
-    top: 200px;
-    left: 0;
-    width: 100%;
+    top: 40%;
+    left: 23%;
+    width: 55%;
     height: 400px;
+    border-radius: 10px;
+    opacity: 0.7;
     z-index: 0;
-    background-image: url("../assets/bg1.jpg");
+    filter: progid: DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
   }
   .login_form {
     position: absolute;;
-    top: 200px;
+    top: 40%;
     right: 30%;
     height: 400px;
     width: 40%;
@@ -206,11 +260,19 @@
     -ms-filter: blur(15px);
     filter: blur(15px);
   }
+  .login_form:hover {
+    transform: scale(1.1);
+    filter: progid: DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+  }
   .retrieve_btn {
     width: 40%;
     font-size: 20px;
+    color: maroon;
     margin-top: 20px;
-    background: linear-gradient(to right, #000099 , #2154FA); /* 标准的语法 */
+    background: linear-gradient(to right, #979927 , hsl(56, 55%, 45%)); /* 标准的语法 */
     filter: brightness(1.4);
   }
   .btn_text {

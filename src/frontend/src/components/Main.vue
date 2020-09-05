@@ -1,16 +1,16 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black; border-color: white; border-width: 5px;">
       <el-row type="flex">
         <el-col :span="2">
           <el-menu-item index="1" @click.native="main">
-            <i class="el-icon-s-home"></i>
+            <i class="el-icon-s-home" style="color: bisque;"></i>
           </el-menu-item>
         </el-col>
         <el-col :span="24"></el-col>
         <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
           <el-menu-item index="3">
-            <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn">注册</el-button>
+            <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn" icon="icon_register"> 注册</el-button>
           </el-menu-item>
         </el-col>
         <el-col :span="3" type="flex" justify="end" v-if="this.isLogin">
@@ -20,12 +20,13 @@
         </el-col>
         <el-col :span="3" type="flex" justify="end">
           <el-menu-item index="2">
-            <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn">登录</el-button>
+            <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn" icon="icon_login"> 登录</el-button>
             <el-button type="text" @click.native="exitLogin" v-else >退出登录</el-button>
           </el-menu-item>
         </el-col>
       </el-row>
     </el-menu>
+    
     <div class="outer_label">
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
@@ -36,7 +37,7 @@
     <div class="back_label">
       <img  style="width: 100%; height: 95%; top: 0;" src="../assets/bg_login.jpg">
     </div>
-    <div style="position: absolute; top: 102%; left: 44%; margin-top: 20px;">
+    <div style="position: absolute; top: 105%; left: 44%;">
       <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
     <div style="margin-top: 5px; position: absolute; top: 108%; left: 44%;">
@@ -162,7 +163,7 @@
     }
   }
 </script>
-<style scoped>
+<style>
   .qxs-ic_user {
     background: url("../assets/ic_user.png") no-repeat;
     background-size: 13px 15px;
@@ -174,6 +175,29 @@
     background-position: 3%;
     margin-bottom: 20px;
   }
+
+  .icon_login {
+    background: url('../assets/denglu.png') left no-repeat ;
+    background-size: cover;
+  }
+
+  .icon_login:before {
+    content:"题";
+    font-size: 16px;
+    visibility: hidden;
+  }
+
+  .icon_register {
+    background: url('../assets/register_icon.png');
+    background-size: cover;
+  }
+
+  .icon_register:before {
+    content:"题";
+    font-size: 16px;
+    visibility: hidden;
+  }
+
   .login_logo {
     height: 100%;
   }
@@ -228,6 +252,8 @@
     width: 40%;
     height: 100%;
     margin: 0;
+    color: bisque;
     text-align: center;
+   
   }
 </style>
