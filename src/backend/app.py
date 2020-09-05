@@ -75,7 +75,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -124,6 +124,18 @@ def user_query():
         return ''
     else:
         return jsonify(res)
+
+# 查询等级
+@app.route('/user/level/', methods=['GET', 'POST'])
+def user_level():
+    data = request.headers.get('Token')
+    sql = "select * from user where token = '{0}'".format(data)
+    res = func(sql, 'l')
+    response = {'username' : res[1], 'level' : res[2]}
+    if not res:
+        return ''
+    else:
+        return jsonify(response)
     
 # 找回密码
 @app.route('/user/retrieve/', methods=['POST'])
