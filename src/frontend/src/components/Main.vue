@@ -32,6 +32,7 @@
     <div class="login_form" > <!--style="background-color: #663333;"-->
       <el-button class="main_btn" @click.native="game" type="primary" round>选关</el-button>
       <el-button class="main_btn" @click.native="community" type="primary" round>社区</el-button>
+      <el-button class="main_btn" @click.native="center" type="primary" round>个人中心</el-button>
     </div>
     <div class="back_label">
       <img  style="width: 100%; height: 95%; top: 0;" src="../assets/bg_login.jpg">
@@ -147,7 +148,7 @@
         this.$axios({
           methods: "post",
           url: this.HOST + "/user/query/",
-          data: this.$qs.stringify({username: 'cmy'})
+          data: this.$qs.stringify({username: '123'})
         })
         .then((response) => {
           this.userName = response.data[1];

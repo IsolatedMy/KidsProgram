@@ -75,7 +75,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'root', 'zqy20000525', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -180,6 +180,32 @@ def user_register():
     res = func(sql,m='w')
     if res:
         return '<b>alert("添加成功")</b>'
+    else:
+        return 'Code:210'
+
+# 修改方法
+@app.route('/user/modify/', methods=["POST"])
+def user_modify():
+    data = dict(request.form)
+    
+    p = r'([^@]+)@([^@]+)\.([^@]+)$'
+    email = data['email']
+    phone = data['phone']
+    if not email and not phone:
+        return 'Code:202'
+    if email and re.search(p, email, re.M|re.I):
+        orgnization = re.search(p, email, re.M|re.I).group(2)
+        post = re.search(p, email, re.M|re.I).group(3)
+        valid_mail = ['qq', '163', 'gmail', 'sina']
+        if orgnization not in valid_mail or post != 'com':
+            return '<script>alert("邮箱格式有误")</script>'
+    else:
+        return '<script>alert("邮箱格式有误")</script>'
+
+    sql = "update user set password='{password}', email='{email}', phone='{phone}' where username= '{username}'".format (**data)
+    res = func(sql,m='w')
+    if res:
+        return '<b>alert("修改成功")</b>'
     else:
         return 'Code:210'
 
