@@ -76,8 +76,18 @@
           this.$message.error('请至少输入邮箱、手机号中的一个');
           return;
         }
-        // 08.04.2020
-
+        let pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        let isEmail = pattern.test(this.email);
+        let phonePattern = /^1\d\d\d\d\d\d\d\d\d\d$/;
+        let isPhone = phonePattern.test(this.phone);
+        if (this.email && !isEmail) {
+          this.$message.warning('邮箱格式错误');
+          return;
+        }
+        if (this.phone && !isPhone) {
+          this.$message.warning('手机号码格式有误');
+          return;
+        }
         this.$axios({
           method: "post",
           url: this.HOST + "/user/register/",
@@ -91,11 +101,20 @@
         .then((response) => {
           console.log(response);
           let token = response.data
-          this.$message({
-            message: '注册成功',
-            type: 'success'
-          })
-          this.$router.push('/');
+          if (token == 'Code:200')
+          {
+            this.$message({
+              message: '注册成功',
+              type: 'success'
+            })
+            this.$router.push('/');
+          }
+          else {
+            this.$message({
+              message: '注册失败',
+              type: 'warning'
+            })
+          }
         })
         .catch(function (error) {
           console.log(error);
