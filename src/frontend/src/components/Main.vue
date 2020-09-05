@@ -146,11 +146,11 @@
       if (this.loginStatus) {
         this.$axios({
           methods: "post",
-          url: this.HOST + "/user/query/",
-          data: this.$qs.stringify({username: 'cmy'})
+          url: this.HOST + "/user/level/"
         })
         .then((response) => {
-          this.userName = response.data[1];
+          console.log(response)
+          this.userName = response.data.username;
         })
         .catch(function (error) {
           console.log(error);
