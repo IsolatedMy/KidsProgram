@@ -22,7 +22,7 @@
       <div class="slogan" style="animation: updown3 6s linear 0s infinite normal none;">solve mazes using programming</div>
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
-   <div class="back1">
+    <div class="back1">
       <img style= "height: 100%; width:100%;" src="../assets/login_bg1.png">
     </div>
     <div class="back2">
@@ -51,10 +51,10 @@
       <img  style="width: 100%; height: 100%; top: 0; border-radius: 10px;" src="../assets/register_bg1.jpg">
     </div> 
     
-    <div style="position: absolute; top: 102%; left: 44%; margin-top: 20px;">
+    <div style="position: absolute; top: 105%; left: 44%; margin-top: 20px;">
       <span style="color: #000099; left: 30%;" @click="userlogin" >本网站问题请邮件咨询...</span>
     </div>
-    <div style="margin-top: 5px; position: absolute; top: 108%; left: 44%;">
+    <div style="margin-top: 5px; position: absolute; top: 112%; left: 44%;">
       <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
     </div>
   </div>

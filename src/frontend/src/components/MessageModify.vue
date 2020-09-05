@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main">
+          <el-menu-item index="1" @click.native="main" style="color: darksalmon; position: fixed; z-index: 100;">
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
@@ -15,9 +15,19 @@
         </el-col>
       </el-row>
     </el-menu>
+    <div class="back1">
+      <img style= "height: 100%; width:100%;" src="../assets/login_bg1.png">
+    </div>
+    <div class="back2">
+      <img style="width: 100%; height: 100%; top:0;" src="../assets/login_bg2.png">
+    </div>
     <div class="outer_label">
+      <div class="slogan" style="top:20%;left:10%; animation:updown 3s linear 0s infinite normal none;">Make Coding Easy</div>
+      <div class="slogan" style="top:60%;left:15%; animation:updown2 4s linear 0s infinite normal none;">All-Ages Friendly</div>
+      <div class="slogan" style="top:40%; left:58%; animation:updown3 6s linear 0s infinite normal none;">solve mazes using programming</div>
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
+   
     <div class="login_form">
       <el-form >
         <el-form-item label="密码">
@@ -104,20 +114,26 @@
     }
   }
 </script>
-<style scoped>
-  .login_logo {
-    height: 100%;
+
+<style scoped>  
+
+  .back1 {
+    position: absolute;
+    top: 45%;
+    right: 0;
+    height: 75%;
+    width: 35%;
+    z-index: 0;
+    background: no-repeat;
   }
-  .outer_label {
-    position: relative;
+  .back2 {
+    position: absolute;
+    top: 75%;
     left: 0;
-    top: 0;
-    width: 100%;
-    height: 200px;
-    background: #ffffff; /* 标准的语法 */
-    /*background-color: #000099;*/
-    text-align: center;
-    filter: brightness(1.4);
+    height: 35%;
+    width: 40%;
+    z-index: 0;
+    background: no-repeat;
   }
   .back_label {
     position: absolute;
@@ -127,7 +143,11 @@
     height: 400px;
     z-index: 0;
     background-image: url("../assets/bg1.jpg");
+  } 
+  .login_logo {
+    height: 100%;
   }
+
   .data_table {
     width: 40%;
     margin-left: 30%;
@@ -139,20 +159,131 @@
     background: #d6780d; /* 标准的语法 */
     filter: brightness(1.4);
   }
+
   .login_form {
-    position: absolute;;
-    top: 200px;
+    position: fixed;
+    top: 220px;
     left: 30%;
     height: 400px;
     width: 40%;
     padding-top: 5%;
     padding-left: 10%;
     padding-right: 10%;
+    z-index: 1;
   }
+
   .qxs-ic {
     width: 80%;
     margin-bottom: 20px;
     background-size: 20px 20px;
     background-position: 3%;
   }
+
+  .slogan {
+   position: absolute;
+   text-align: center;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 35px;
+   color: rgb(187, 55, 15);
+   border: 5px solid rgb(187, 55, 15);
+   border-radius: 5px;
+   margin:2px;
+   background-color: none;
+ }
+
+ @keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+  @-o-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+  @-moz-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+  @-webkit-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+  @keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+  @-o-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+  @-moz-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+  @-webkit-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-o-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-moz-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-webkit-keyframes updown3 {
+  0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
 </style>
