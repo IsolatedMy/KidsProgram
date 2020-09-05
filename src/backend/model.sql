@@ -2,6 +2,10 @@ create database if not exists kidsprog;
 
 use kidsprog;
 
+drop table kidsprog.score;
+drop table kidsprog.progress;
+drop table user;
+
 create table if not exists kidsprog.user (
     user_id int unsigned not null AUTO_INCREMENT,
     username varchar(20) not null,
