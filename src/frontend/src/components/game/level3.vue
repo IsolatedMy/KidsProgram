@@ -7,7 +7,7 @@
             <i class="el-icon-back"></i>
           </el-menu-item>
         </el-col>
-        <el-col type="flex" justify="end">
+        <el-col type="flex" justify="end" class="title_font">
           level3
         </el-col>
       </el-row>
@@ -51,12 +51,12 @@ export default {
         'y': 0,
         //1 indicata start,2 indicate destination,3 indicate obstacle
         'map': [
-          [0, 0, 3, 0, 3, 3, 0, 0],
-          [1, 0, 0, 0, 0, 3, 0, 0],
-          [3, 3, 0, 3, 0, 0, 0, 0],
-          [2, 3, 0, 3, 0, 3, 0, 0],
-          [0, 3, 3, 3, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 3, 0, 0]
+          [0, 0, 3, 0, 3, 3],
+          [1, 0, 0, 0, 0, 3],
+          [3, 3, 0, 3, 0, 0],
+          [2, 3, 0, 3, 3, 0],
+          [0, 3, 3, 3, 0, 0],
+          [0, 0, 0, 0, 0, 3]
         ]
       }
     }
@@ -67,6 +67,9 @@ export default {
     },
     back() {
       this.$router.back(-1);
+    },
+    nativeHandler() {
+      this.$message.success("串台成功");
     }
   },
   mounted() {
@@ -101,5 +104,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .title_font {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    font-size: 20px;
+  }
 </style>

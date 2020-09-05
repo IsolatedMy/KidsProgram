@@ -22,8 +22,43 @@ async function game_move(n) {
   if( is_dest() )
   {
     //can use vuex store
-    alert('finish game!');
     button_reset();
+    vue.$message.success("通关成功");
+    if ( vue._data.level == 1 && !vue._data.loginStatus) {
+      vue.$alert('恭喜您通关了试玩关卡。如果想玩更多关卡，请登录。','通关成功',{
+        confirmButtonText: '确定',
+        callback: action => {
+          vue.$router.push('/');
+        }
+      });
+    }
+    else {
+      vue.$axios({
+        method: "post",
+        url: vue.HOST + "/progress/update/",
+        data: vue.$qs.stringify({
+          progress: vue._data.level + 1
+        })
+      })
+      .then( (response) => {
+        let data = response.data;
+        if (data == 'Code:300') {
+          vue.$alert('恭喜', '通关成功', {
+            confirmButtonText: '确定',
+            callback: action => {
+              vue.$router.push('/game/');
+              location.reload();
+            }
+          });
+        }
+        else if ( data == 'Code:302') {
+          vue.$message.error(data);
+        }
+      })
+      .catch( (error) =>{
+        console.log(error);
+      });
+    }
   }
 }
 
@@ -167,3 +202,38 @@ function game_turn(dir) {
   ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
 }
 
+function barrier_judge(dir){
+  let all_x = 0;
+  let all_y = 0;
+  switch(game['dir']){
+    case cst['dir']['UP']:
+      all_x = 0;
+      all_y = -1;
+      break;
+    case cst['dir']['DOWN']:
+      all_x = 0;
+      all_y = 1;
+      break;
+    case cst['dir']['LEFT']:
+      all_x = -1;
+      all_y = 0;
+      break;
+    case cst['dir']['RIGHT']:
+      all_x = 1;
+      all_y = 0;
+      break;
+    default:
+      alert(arguments.callee.name + ' switch value ' + game['dir']);
+  }
+  if( game['x'] + all_x > canvas_width_cnt || game['y'] + all_y > canvas_height_cnt
+  || game['x'] + all_x < 0 || game['y'] + all_y < 0 )
+  {
+    return true;
+  }
+  //obstacle check
+  if( is_obs(game['x'] + all_x,game['y'] + all_y) )
+  {
+    return true;
+  }
+  return false;
+}
