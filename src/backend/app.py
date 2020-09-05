@@ -77,7 +77,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'szgwhwjsls', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -198,7 +198,7 @@ def user_register():
     verification = data['verification']
     global code_gb
     if code_gb != verification:
-        return 'Code:210'
+        return 'Code:211'
     sql = "insert into user (username, password, role, create_time, login_state, email, phone) values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
     res1 = func(sql,m='w')
     sql = "insert into progress values ('{0}', 1)".format(username)
