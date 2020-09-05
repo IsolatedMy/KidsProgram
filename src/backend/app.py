@@ -97,10 +97,10 @@ def func(sql, m ='r'):
 @app.route('/user/login/', methods=["POST"])
 def user_login():
     data = dict(request.form)
-    username = data['username']
+    username = data['username'][0]
     sql = "select * from user where username = '{0}' ".format(username)
     res = func(sql, 'l')
-    if res and res[2] == data['password']:
+    if res and res[2] == data['password'][0]:
         # token = user.generate_auth_token()
         # return token
         currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -124,6 +124,19 @@ def user_query():
         return ''
     else:
         return jsonify(res)
+
+# 查询等级
+@app.route('/user/level/', methods=['GET', 'POST'])
+def user_level():
+    data = request.headers.get('Token')
+    sql = "select * from user where token = '{0}'".format(data)
+    res = func(sql, 'l')
+    # 目前没有关卡信息
+    response = {'username' : res[1], 'level' : 'null'}
+    if not res:
+        return ''
+    else:
+        return jsonify(response)
     
 # 找回密码
 @app.route('/user/retrieve/', methods=['POST'])
@@ -179,7 +192,33 @@ def user_register():
     sql = "insert into progress values ('{0}', 1)".format(username)
     res = func(sql,m='w')
     if res:
-        return '<b>alert("添加成功")</b>'
+        return 'Code:200'
+    else:
+        return 'Code:210'
+
+# 修改方法
+@app.route('/user/modify/', methods=["POST"])
+def user_modify():
+    data = dict(request.form)
+    
+    p = r'([^@]+)@([^@]+)\.([^@]+)$'
+    email = data['email']
+    phone = data['phone']
+    if not email and not phone:
+        return 'Code:202'
+    if email and re.search(p, email, re.M|re.I):
+        orgnization = re.search(p, email, re.M|re.I).group(2)
+        post = re.search(p, email, re.M|re.I).group(3)
+        valid_mail = ['qq', '163', 'gmail', 'sina']
+        if orgnization not in valid_mail or post != 'com':
+            return '<script>alert("邮箱格式有误")</script>'
+    else:
+        return '<script>alert("邮箱格式有误")</script>'
+
+    sql = "update user set password='{password}', email='{email}', phone='{phone}' where username= '{username}'".format (**data)
+    res = func(sql,m='w')
+    if res:
+        return '<b>alert("修改成功")</b>'
     else:
         return 'Code:210'
 
@@ -200,8 +239,8 @@ def progree_udpate():
     else:
         return 'Code:302'
 
-@app.route('/progress/send/',  methods=["POST"])
-def progress_send():
+@app.route('/user/send/',  methods=["POST"])
+def user_send():
     data = dict(request.form)
     email = data['email']
     code = random.sample(list(range(9, 100)), 3)
@@ -216,7 +255,12 @@ def progress_send():
     email_content = "您的验证码为：%s" % code 
     email_title = "少儿编程游戏"
 
-    sendMail(mail_user, mail_pwd, mail_sender, maill)
+    try:
+        sendMail(mail_user, mail_pwd, mail_sender, mail_receiver, email_content, email_title)
+        return 'Code:300'
+    except:
+        return 'Code:303'
+    
 
 
 

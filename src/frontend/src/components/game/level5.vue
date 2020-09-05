@@ -8,7 +8,7 @@
           </el-menu-item>
         </el-col>
         <el-col type="flex" justify="end">
-          level2
+          level5
         </el-col>
       </el-row>
     </el-menu>
@@ -16,6 +16,8 @@
     <xml id="toolbox" style="display: none">
         <block type="move_forward"></block>
         <block type="turn"></block>
+        <block type="condition_block"></block>
+        <block type="condition"></block>
     </xml>
     <div class="container-fluid" style="margin-top:20px">
       <div class="row">
@@ -42,18 +44,20 @@
 export default {
   data: function () {
     return {
-      level: 2,
+      level: 5,
       activeIndex: '1',
-      max_blocks: 7,
+      max_blocks: 10,
       init_game: {
         'dir': 1,
         'x': 0,
         'y': 0,
         //1 indicata start,2 indicate destination,3 indicate obstacle
         'map': [
-          [1, 0, 0],
-          [0, 0, 0],
-          [0, 0, 2],
+          [0, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [3, 3, 3, 0, 0],
+          [2, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]
         ]
       }
     }

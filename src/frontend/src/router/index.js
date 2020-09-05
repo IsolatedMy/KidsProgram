@@ -8,9 +8,13 @@ import Game from '../components/Game.vue'
 import Community from '../components/Community.vue'
 import Center from '../components/Center.vue'
 import Retrieve from '../components/Retrieve.vue'
+import MessageModify from '../components/MessageModify.vue'
 
 import Level1 from '../components/game/level1.vue'
 import Level2 from '../components/game/level2.vue'
+import Level3 from '../components/game/level3.vue'
+import Level4 from '../components/game/level4.vue'
+import Level5 from '../components/game/level5.vue'
 
 Vue.use(Router)
 
@@ -46,6 +50,18 @@ export default new Router({
       component: Level2
     },
     {
+      path: '/game/level3',
+      component: Level3
+    },
+    {
+      path: '/game/level4',
+      component: Level4
+    },
+    {
+      path: '/game/level5',
+      component: Level5
+    },
+    {
       path: '/center',
       name: 'Center',
       component: Center
@@ -59,6 +75,11 @@ export default new Router({
       path: '/Retrieve',
       name: 'Retrieve',
       component: Retrieve
+    },
+    {
+      path: '/center/modify',
+      name: 'MessageModify',
+      component: MessageModify
     }
   ]
 });

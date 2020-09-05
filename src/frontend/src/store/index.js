@@ -15,7 +15,9 @@ export default new Vuex.Store({
     // 修改token，并将token存入localStorage
     changeLogin (state, user) {
       state.Authorization = user.Authorization;
-      localStorage.setItem('Authorization', user.Authorization);
+      let localstorage = require('../../static/localstorage.js');
+      let authorization = localstorage.set('Authorization', user.Authorization);
+      // localStorage.setItem('Authorization', user.Authorization);
       console.log(user);
     },
     changeExample (state, newState) {

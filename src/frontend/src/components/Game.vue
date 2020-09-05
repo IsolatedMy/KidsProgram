@@ -27,13 +27,19 @@
             <el-button class="game_btn_without" @click.native="hint" v-else round>2</el-button>
           </el-col>
           <el-col>
-            <el-button class="game_btn" v-if="loginStatus" round>3</el-button>
-            <el-button class="game_btn_without" v-else round>3</el-button>
+            <el-button class="game_btn" @click.native="level3" v-if="loginStatus" round>3</el-button>
+            <el-button class="game_btn_without" @click.native="hint" v-else round>3</el-button>
           </el-col>
         </el-row>
         <el-row type="flex">
-          <el-col><el-button class="game_btn" :disabled="!loginStatus" round>4</el-button></el-col>
-          <el-col><el-button class="game_btn" :disabled="!loginStatus" round>5</el-button></el-col>
+          <el-col>
+            <el-button class="game_btn" @click.native="level4" v-if="loginStatus" round>4</el-button>
+            <el-button class="game_btn_without" @click.native="hint" v-else round>4</el-button>
+          </el-col>
+          <el-col>
+            <el-button class="game_btn" @click.native="level5" v-if="loginStatus" round>5</el-button>
+            <el-button class="game_btn_without" @click.native="hint" v-else round>5</el-button>
+          </el-col>
           <el-col><el-button class="game_btn" :disabled="!loginStatus" round>6</el-button></el-col>
         </el-row>
         <div style="margin-top: 10px"></div>
@@ -62,11 +68,20 @@ export default {
     level1() {
       this.$router.push('/game/level1');
     },
-    retn() {
-      this.$router.go(-1);
+    level3() {
+      this.$router.push('/game/level3');
+    },
+    level4() {
+      this.$router.push('/game/level4');
     },
     level2() {
       this.$router.push('/game/level2');
+    },
+    level5() {
+      this.$router.push('/game/level5');
+    },
+    retn() {
+      this.$router.go(-1);
     },
     hint() {
       this.$message.warning("未登录状态下不可试玩该关卡");
@@ -76,7 +91,9 @@ export default {
 
   },
   mounted() {
-    let authorization = localStorage.getItem('Authorization');
+    // let authorization = localStorage.getItem('Authorization');
+    let localstorage = require('../../static/localstorage');
+    let authorization = localstorage.get('Authorization');
     if (authorization)
       this.loginStatus = true;
     else

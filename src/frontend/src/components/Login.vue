@@ -73,7 +73,8 @@
       }
     },
     created () {
-      let token = localStorage.getItem('Authorization');
+      let localstorage = require('../../static/localstorage');
+      let token = localstorage.get('Authorization');
       console.log(token);
       if (token != '<b>Login Suceess</b>') {
         this.isLogin = false;

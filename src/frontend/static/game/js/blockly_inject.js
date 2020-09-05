@@ -42,7 +42,75 @@ Blockly.defineBlocksWithJsonArray([
     "colour": 230,
     "tooltip": "",
     "helpUrl": ""
-  }
+  },
+  {
+    "type": "condition_block",
+    "message0": "如果 %1 就 %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "condition"
+      },
+      {
+        "type": "input_statement",
+        "name": "do"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "condition",
+    "message0": "发生 %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "dir",
+        "options": [
+          [
+            "front",
+            cst['dir']['UP'].toString()
+          ],
+          [
+            "left",
+            cst['dir']['LEFT'].toString()
+          ]
+        ]
+      }
+    ],
+    "output": "Boolean",
+    "colour": 210,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "loop_block",
+    "message0": "执行 %1 次 %2 %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "times",
+        "value": 0,
+        "min": 0,
+        "max": 10
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "statement"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "",
+    "helpUrl": ""
+}
 ]);
 
 //block code generation(dispatchevent)
@@ -61,6 +129,38 @@ Blockly.JavaScript['turn'] = function(block) {
     `
     game_turn(${dropdown_direction});\n
     `;
+  return code;
+};
+
+Blockly.JavaScript['condition_block'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...;\n';
+  return code;
+};
+
+Blockly.JavaScript['condition'] = function(block) {
+  var dropdown_dir = block.getFieldValue('dir');
+  // TODO: Assemble JavaScript into code variable.
+  var code = `
+
+  `;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['loop_block'] = function(block) {
+  var times = block.getFieldValue('times');
+  var statements = Blockly.JavaScript.statementToCode(block, 'statement');
+  // TODO: Assemble JavaScript into code variable.
+  console.log(statements);
+  var code = `
+    for (let i = 0; i < ${times}; i = i + 1 )
+    {
+      ${statements}\n
+    }
+  `;
   return code;
 };
 
