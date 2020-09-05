@@ -26,25 +26,26 @@ img.walk_right.onload = loaded;
 //init function
 function init_canvas() {
   //board
-  ctx_bg.strokeRect(0,0,canvas_size,canvas_size);
   ctx_bg.beginPath();
   ctx_bg.strokeStyle = "black";
-  for (var x = grid_size; x <= canvas_size; x += grid_size) {
-      ctx_bg.moveTo(x, 0);
-      ctx_bg.lineTo(x, canvas_size);
+  //(x,0)->(x,y_max)
+  for (var x = 0; x <= canvas_width_cnt; x += 1) {
+      ctx_bg.moveTo(x * grid_size, 0);
+      ctx_bg.lineTo(x * grid_size, canvas_height_cnt * grid_size);
   }
-  for (var x = grid_size; x <= canvas_size; x += grid_size) {
-      ctx_bg.moveTo(0, x);
-      ctx_bg.lineTo(canvas_size, x);
+  //(0,y)->(x_max,y)
+  for (var y = 0; y <= canvas_height_cnt; y += 1) {
+      ctx_bg.moveTo(0, y * grid_size);
+      ctx_bg.lineTo(canvas_width_cnt * grid_size, y * grid_size);
   }
   ctx_bg.stroke();
   ctx_bg.closePath();
   //start sprite and obstacle and dest
   //sprite, 16x17 -> 50x50
-  for( var y = 0;y < grid_count; y++ ) {
-    for( var x = 0;x < grid_col; x++ ) {
+  for( var x = 0;x < canvas_height_cnt; x++ ) {
+    for( var y = 0;y < canvas_width_cnt; y++ ) {
       //start
-      if( game['map'][y][x] == 1 )
+      if( game['map'][x][y] == 1 )
       {
         //location in idle images
         let index;
@@ -62,22 +63,22 @@ function init_canvas() {
             index = 3;
             break;
         }
-        ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(x + 1),real_xy(y + 1),sprite_dest_size,sprite_dest_size);
+        ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(y + 1),real_xy(x + 1),sprite_dest_size,sprite_dest_size);
 
-        game['x'] = x + 1;
-        game['y'] = y + 1;
+        game['x'] = y + 1;
+        game['y'] = x + 1;
       }
       //end
-      else if( game['map'][y][x] == 2 )
+      else if( game['map'][x][y] == 2 )
       {
         ctx_bg.fillStyle = 'green';
-        ctx_bg.fillRect(real_xy_nopad(x + 1),real_xy_nopad(y + 1),grid_size,grid_size);
+        ctx_bg.fillRect(real_xy_nopad(y + 1),real_xy_nopad(x + 1),grid_size,grid_size);
       }
       //obstacle
-      else if( game['map'][y][x] == 3 )
+      else if( game['map'][x][y] == 3 )
       {
         ctx_bg.fillStyle = 'red';
-        ctx_bg.fillRect(real_xy_nopad(x + 1),real_xy_nopad(y + 1),grid_size,grid_size);
+        ctx_bg.fillRect(real_xy_nopad(y + 1),real_xy_nopad(x + 1),grid_size,grid_size);
       }
     }
   }

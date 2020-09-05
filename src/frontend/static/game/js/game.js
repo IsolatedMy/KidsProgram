@@ -71,8 +71,8 @@ function game_move_one(){
         alert(arguments.callee.name + ' switch value ' + game['dir']);
     }
     //border check
-    if( real_xy(game['x'] + all_x) > canvas_size || real_xy(game['y'] + all_y) > canvas_size
-      || real_xy(game['x'] + all_x) < 0 || real_xy(game['y'] + all_y) < 0 )
+    if( game['x'] + all_x > canvas_width_cnt || game['y'] + all_y > canvas_height_cnt
+      || game['x'] + all_x < 0 || game['y'] + all_y < 0 )
     {
       res();
       return;
@@ -166,3 +166,4 @@ function game_turn(dir) {
   }
   ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
 }
+
