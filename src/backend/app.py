@@ -131,7 +131,8 @@ def user_level():
     data = request.headers.get('Token')
     sql = "select * from user where token = '{0}'".format(data)
     res = func(sql, 'l')
-    response = {'username' : res[1], 'level' : res[2]}
+    # 目前没有关卡信息
+    response = {'username' : res[1], 'level' : 'null'}
     if not res:
         return ''
     else:

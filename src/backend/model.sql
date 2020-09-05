@@ -17,7 +17,6 @@ create table if not exists kidsprog.user (
     token varchar(45),
     email varchar(45),
     phone int,
-    level int unsigned not null DEFAULT 0,
     primary key (user_id),
     constraint SPK_SIGNUP Check (email is not null or phone is not null),
     UNIQUE INDEX UK_ID (user_id ASC) VISIBLE,
