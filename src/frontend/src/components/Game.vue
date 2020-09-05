@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black;">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main">
+          <el-menu-item index="1" @click.native="main" style="color: darksalmon; position: fixed; z-index: 100;">
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
@@ -43,7 +43,7 @@
           <el-col><el-button class="game_btn" :disabled="!loginStatus" round>6</el-button></el-col>
         </el-row>
         <div style="margin-top: 10px"></div>
-        <span style="float: right;color: #A9A9AB">版权归属@软工苟命组</span>
+        <span style="position: absolute; top:90%; left: 40%; color: #A9A9AB">版权归属@软工苟命组</span>
       </div>
     </div>
   </div>
@@ -113,10 +113,11 @@ export default {
   .login_form {
     position: relative;
     left: 0;
-    top: 0;
+    top: 20%;
     right: 0;
     bottom: 0;
-    width: 600px; height: 400px;
+    width: 600px; 
+    height: 400px;
     margin: auto;
     z-index: 1;
   }

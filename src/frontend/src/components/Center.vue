@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black;">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main">
+          <el-menu-item index="1" @click.native="main" style="color: darksalmon; position: fixed; z-index: 100;">
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>

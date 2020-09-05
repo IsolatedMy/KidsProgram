@@ -3,7 +3,7 @@
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black;">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main"  style="color: bisque;">
+          <el-menu-item index="1" @click.native="main"  style="color: darksalmon; position: fixed; z-index: 100;">
             <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
@@ -15,6 +15,9 @@
       </el-row>
     </el-menu>
     <div class="outer_label">
+      <div class="slogan" style="left:10%; animation: updown 3s linear 0s infinite normal none;">Make Coding Easy</div>
+      <div class="slogan" style="left:15%; animation: updown2 4s linear 0s infinite normal none;">All-Ages Friendly</div>
+      <div class="slogan" style="animation: updown3 6s linear 0s infinite normal none;">solve mazes using programming</div>
       <img class="inner_label login_logo" src="../assets/game_logo.png">
     </div>
      <div class="back1">
@@ -281,4 +284,110 @@
     display: flex;
     justify-content: center;
   }
+  .slogan {
+   position: absolute;
+   text-align: center;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 35px;
+   color: rgb(187, 55, 15);
+   border: 5px solid rgb(187, 55, 15);
+   border-radius: 5px;
+   margin:2px;
+   background-color: none;
+ }
+ @keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-o-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-moz-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-webkit-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-o-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-moz-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-webkit-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+@keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-o-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-moz-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-webkit-keyframes updown3 {
+  0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
 </style>
