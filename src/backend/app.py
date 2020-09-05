@@ -77,9 +77,9 @@ def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
     py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
     cursor = py.cursor()
-    print(sql)
     try:
         cursor.execute(sql)
+        print(sql)
         if m == 'r':
             data = cursor.fetchall()
         elif m == 'l':
@@ -97,10 +97,10 @@ def func(sql, m ='r'):
 @app.route('/user/login/', methods=["POST"])
 def user_login():
     data = dict(request.form)
-    username = data['username'][0]
+    username = data['username']
     sql = "select * from user where username = '{0}' ".format(username)
     res = func(sql, 'l')
-    if res and res[2] == data['password'][0]:
+    if res and res[2] == data['password']:
         # token = user.generate_auth_token()
         # return token
         currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -224,20 +224,39 @@ def user_modify():
 
 @app.route('/progress/update/', methods=["POST"])
 def progree_udpate():
+    token = request.headers.get('Token')
     data = dict(request.form)
-    username = data['username']
-    sql = "select * from user where username = '{0}'".format(username)
-    res = func(sql, m="l")
+    sql = "select * from user where token = '{0}'".format(token)
+    res = func(sql, 'l')
     if not res:
-        return('Code:301')
+        return 'Code:302'
     user_id = res[0]
     progress = data['progress']
-    sql = "update progress set unlock_progress = {0} where user_id = {1}".format(progress, user_id)
+    sql = "select * from progress where user_id = {0}".format(user_id)
+    res = func(sql, 'l')
+    max_level = res[1]
+    if int(max_level) > int(progress):
+        return 'Code:301'
+    sql = "update progress set unlock_progress = '{0}' where user_id = '{1}'".format(progress, user_id)
     res = func(sql, m="w")
+    print(res)
     if res:
         return 'Code:300'
     else:
-        return 'Code:302'
+        return 'Code:301'
+
+@app.route('/progress/query/', methods=["POST"])
+def progress_query():
+    token = request.headers.get('Token')
+    sql = "select * from user where token = '{0}'".format(token)
+    res = func(sql, 'l')
+    user_id = res[0]
+    sql = "select * from progress where user_id = '{0}'".format(user_id)
+    res = func(sql, 'l')
+    if res:
+      return str(res[1])
+    else:
+      return 'Code:302'
 
 @app.route('/user/send/',  methods=["POST"])
 def user_send():
@@ -261,8 +280,6 @@ def user_send():
     except:
         return 'Code:303'
     
-
-
 
 if __name__ == '__main__':
     app.run (debug=True, host='localhost', port='8000')

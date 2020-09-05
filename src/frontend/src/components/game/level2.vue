@@ -7,7 +7,7 @@
             <i class="el-icon-back"></i>
           </el-menu-item>
         </el-col>
-        <el-col type="flex" justify="end">
+        <el-col type="flex" justify="end" class="title_font">
           level2
         </el-col>
       </el-row>
@@ -98,5 +98,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .title_font {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    font-size: 20px;
+  }
 </style>

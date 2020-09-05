@@ -70,6 +70,8 @@ module.exports = {
       if(!isExpire) {
           value = localStorage.getItem(key);
           value = JSON.parse(value);
+          console.log(value._isObject);
+          console.log(value);
           if(!value._isObject) {
               value = value._value;
           }

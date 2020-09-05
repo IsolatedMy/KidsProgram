@@ -2,7 +2,7 @@
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "move_forward",
-    "message0": "move_forward %1",
+    "message0": "前进 %1",
     "args0": [
       {
         "type": "field_number",
@@ -20,18 +20,18 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     "type": "turn",
-    "message0": "turn %1",
+    "message0": "转弯 %1",
     "args0": [
       {
         "type": "field_dropdown",
         "name": "direction",
         "options": [
           [
-            "left",
+            "向左转",
             cst['dir']['LEFT'].toString()
           ],
           [
-            "right",
+            "向右转",
             cst['dir']['RIGHT'].toString()
           ]
         ]
@@ -71,12 +71,8 @@ Blockly.defineBlocksWithJsonArray([
         "name": "dir",
         "options": [
           [
-            "front",
+            "前面有障碍",
             cst['dir']['UP'].toString()
-          ],
-          [
-            "left",
-            cst['dir']['LEFT'].toString()
           ]
         ]
       }
@@ -95,7 +91,7 @@ Blockly.defineBlocksWithJsonArray([
         "name": "times",
         "value": 0,
         "min": 0,
-        "max": 10
+        "max": 15
       },
       {
         "type": "input_dummy"
@@ -133,18 +129,23 @@ Blockly.JavaScript['turn'] = function(block) {
 };
 
 Blockly.JavaScript['condition_block'] = function(block) {
-  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+  var value = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statement = Blockly.JavaScript.statementToCode(block, 'do');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  console.log(value);
+  var code =`
+    if (${value}) {
+      ${statement}\n
+    }
+  `;
   return code;
 };
 
 Blockly.JavaScript['condition'] = function(block) {
-  var dropdown_dir = block.getFieldValue('dir');
+  var dir = block.getFieldValue('dir');
   // TODO: Assemble JavaScript into code variable.
   var code = `
-
+    barrier_judge( ${dir} )\n
   `;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];

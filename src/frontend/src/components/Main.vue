@@ -128,7 +128,10 @@
         this.$router.push('/');
       },
       nativeHandler() {
-
+        let localstorage = require('../../static/localstorage');
+        let authorization = localstorage.get('Authorization');
+        console.log('Hello');
+        console.log(authorization);
       },
       goBack() {
         this.$router.replace({path: '/'});

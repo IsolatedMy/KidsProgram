@@ -7,7 +7,7 @@
             <i class="el-icon-back"></i>
           </el-menu-item>
         </el-col>
-        <el-col type="flex" justify="end">
+        <el-col type="flex" justify="end" class="title_font">
           level5
         </el-col>
       </el-row>
@@ -16,6 +16,7 @@
     <xml id="toolbox" style="display: none">
         <block type="move_forward"></block>
         <block type="turn"></block>
+        <block type="loop_block"></block>
         <block type="condition_block"></block>
         <block type="condition"></block>
     </xml>
@@ -53,11 +54,11 @@ export default {
         'y': 0,
         //1 indicata start,2 indicate destination,3 indicate obstacle
         'map': [
-          [0, 0, 0, 0, 0],
           [1, 0, 0, 0, 0],
-          [3, 3, 3, 0, 0],
-          [2, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0]
+          [3, 3, 3, 3, 0],
+          [3, 3, 3, 3, 0],
+          [3, 3, 3, 3, 0],
+          [2, 0, 0, 0, 0]
         ]
       }
     }
@@ -102,5 +103,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .title_font {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    font-size: 20px;
+  }
 </style>

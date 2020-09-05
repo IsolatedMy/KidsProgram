@@ -7,7 +7,7 @@
             <i class="el-icon-back"></i>
           </el-menu-item>
         </el-col>
-        <el-col type="flex" justify="end">
+        <el-col type="flex" justify="end" class="title_font">
           level1
         </el-col>
       </el-row>
@@ -44,6 +44,7 @@ export default {
       max_blocks: 3,
       level: 1,
       activeIndex: '1',
+      loginStatus: false,
       init_game: {
         'dir': 2,
         'x': 0,
@@ -62,11 +63,21 @@ export default {
       this.$router.push('/');
     },
     back() {
-      this.$router.back(-1);
+      this.$router.push('/game/');
+    },
+    nativeHandler() {
+      this.$message.success("串台成功");
     }
   },
   mounted() {
-    console.log(this.init_game);
+    let localstorage = require('../../../static/localstorage');
+    let authorization = localstorage.get('Authorization');
+    console.log(authorization);
+    if (authorization)
+      this.loginStatus = true;
+    else
+      this.loginStatus = false;
+
     this.$loadScript('/static/blockly/blockly_compressed.js')
       .then(() => (
         this.$loadScript('/static/blockly/en.js')
@@ -104,5 +115,10 @@ export default {
     margin-top: 13px;
     margin-left: 48%;
     font-size: 25px;
+  }
+  .title_font {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    font-size: 20px;
   }
 </style>

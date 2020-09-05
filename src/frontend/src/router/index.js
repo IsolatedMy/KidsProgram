@@ -16,6 +16,8 @@ import Level3 from '../components/game/level3.vue'
 import Level4 from '../components/game/level4.vue'
 import Level5 from '../components/game/level5.vue'
 
+import Tutorial from '../components/game/tutorial.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -60,6 +62,10 @@ export default new Router({
     {
       path: '/game/level5',
       component: Level5
+    },
+    {
+      path: '/game/tutorial',
+      component: Tutorial
     },
     {
       path: '/center',
