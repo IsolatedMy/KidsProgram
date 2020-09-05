@@ -18,7 +18,7 @@ function button_run()
 }
 function button_reset()
 {
-  ctx.clearRect(0,0,canvas_size,canvas_size);
+  ctx.clearRect(0,0,canvas_width_cnt * grid_size,canvas_height_cnt * grid_size);
   game = Object.assign({},vue._data.init_game);
   document.getElementById("run_btn").disabled = false;
   init_canvas();
