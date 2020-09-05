@@ -19,8 +19,10 @@ from email.mime.text import MIMEText
 import random 
 
 code = ''
+code_gb = ''
 
 app = Flask(__name__)
+app.config.update(DEBUG=True)
 
 # CORS
 CORS(app,supports_credentials=True)
@@ -75,7 +77,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'root', 'szgwhwjsls', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -124,18 +126,6 @@ def user_query():
         return ''
     else:
         return jsonify(res)
-
-# 查询等级
-@app.route('/user/level/', methods=['GET', 'POST'])
-def user_level():
-    data = request.headers.get('Token')
-    sql = "select * from user where token = '{0}'".format(data)
-    res = func(sql, 'l')
-    response = {'username' : res[1], 'level' : res[2]}
-    if not res:
-        return ''
-    else:
-        return jsonify(response)
     
 # 找回密码
 @app.route('/user/retrieve/', methods=['POST'])
@@ -159,6 +149,26 @@ def user_retrieve():
             sql = "update user set password = '{0}' where username = '{1}' and phone = '{2}'".format(password, username, key)
         res = func(sql, 'w')
     return ''
+
+@app.route('/user/send/',  methods=["POST"])
+def progress_send():
+    data = dict(request.form)
+    email = data['email']
+    print(email)
+    code = random.sample(list(range(9, 100)), 3)
+    code = list(map(lambda x: str(x), code))
+    code = ''.join(code)
+    global code_gb
+    code_gb = code
+    mail_user = "651423114@qq.com"
+    mail_pwd = "ipzpcmclnedkbdha"
+    mail_sender = "651423114@qq.com"
+    mail_receiver = email
+
+    email_content = "您的验证码为：%s" % code 
+    email_title = "少儿编程游戏"
+
+    sendMail(mail_user, mail_pwd, mail_sender, mail_receiver,email_content, email_title)
 
 # 注册方法
 @app.route('/user/register/', methods=["POST"])
@@ -185,39 +195,16 @@ def user_register():
     else:
         return '<script>alert("邮箱格式有误")</script>'
 
-    sql = "insert into user (username, password, role, create_time, login_state, email, phone)" \
-         " values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
-    res = func(sql,m='w')
+    verification = data['verification']
+    global code_gb
+    if code_gb != verification:
+        return 'Code:210'
+    sql = "insert into user (username, password, role, create_time, login_state, email, phone) values ('{username}','{password}','U', now(), 'N', '{email}','{phone}')".format (**data)
+    res1 = func(sql,m='w')
     sql = "insert into progress values ('{0}', 1)".format(username)
     res = func(sql,m='w')
-    if res:
-        return 'Code:200'
-    else:
-        return 'Code:210'
-
-# 修改方法
-@app.route('/user/modify/', methods=["POST"])
-def user_modify():
-    data = dict(request.form)
-    
-    p = r'([^@]+)@([^@]+)\.([^@]+)$'
-    email = data['email']
-    phone = data['phone']
-    if not email and not phone:
-        return 'Code:202'
-    if email and re.search(p, email, re.M|re.I):
-        orgnization = re.search(p, email, re.M|re.I).group(2)
-        post = re.search(p, email, re.M|re.I).group(3)
-        valid_mail = ['qq', '163', 'gmail', 'sina']
-        if orgnization not in valid_mail or post != 'com':
-            return '<script>alert("邮箱格式有误")</script>'
-    else:
-        return '<script>alert("邮箱格式有误")</script>'
-
-    sql = "update user set password='{password}', email='{email}', phone='{phone}' where username= '{username}'".format (**data)
-    res = func(sql,m='w')
-    if res:
-        return '<b>alert("修改成功")</b>'
+    if res1:
+        return '<b>alert("添加成功")</b>'
     else:
         return 'Code:210'
 
@@ -237,30 +224,6 @@ def progree_udpate():
         return 'Code:300'
     else:
         return 'Code:302'
-
-@app.route('/user/send/',  methods=["POST"])
-def user_send():
-    data = dict(request.form)
-    email = data['email']
-    code = random.sample(list(range(9, 100)), 3)
-    code = lsit(map(lambda x: str(x), code))
-    code = ''.join(code)
-    
-    mail_user = "1015547300@qq.com"
-    mail_pwd = "progywkwgdogbchd"
-    mail_sender = "1015547300@qq.com"
-    mail_receiver = email
-
-    email_content = "您的验证码为：%s" % code 
-    email_title = "少儿编程游戏"
-
-    try:
-        sendMail(mail_user, mail_pwd, mail_sender, mail_receiver, email_content, email_title)
-        return 'Code:300'
-    except:
-        return 'Code:303'
-    
-
 
 
 if __name__ == '__main__':
