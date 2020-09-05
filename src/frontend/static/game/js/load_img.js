@@ -22,6 +22,15 @@ img.walk_left.onload = loaded;
 img.walk_right= new Image();
 img.walk_right.src = '/static/game/sprites/walk/right.png';
 img.walk_right.onload = loaded;
+img.lawn= new Image();
+img.lawn.src = '/static/game/sprites/walk/lawn.png';
+img.lawn.onload = loaded;
+img.tree= new Image();
+img.tree.src = '/static/game/sprites/walk/tree.png';
+img.tree.onload = loaded;
+img.princess= new Image();
+img.princess.src = '/static/game/sprites/walk/princess.png';
+img.princess.onload = loaded;
 
 //init function
 function init_canvas() {
@@ -71,14 +80,27 @@ function init_canvas() {
       //end
       else if( game['map'][x][y] == 2 )
       {
-        ctx_bg.fillStyle = 'green';
+        /*
+        let pattern = ctx_bg.createPattern(img.princess, 'repeat');
+        ctx_bg.fillStyle = pattern;
         ctx_bg.fillRect(real_xy_nopad(y + 1),real_xy_nopad(x + 1),grid_size,grid_size);
+        */
+        ctx.drawImage(img.princess,real_xy(y + 1)- 2 * grid_pad,real_xy(x + 1)- 1 * grid_pad,sprite_dest_size + 4 * grid_pad,sprite_dest_size + 4 * grid_pad);
       }
       //obstacle
-      else if( game['map'][x][y] == 3 )
+      else if( game['map'][x][y] == 0 )
       {
+        /*
         ctx_bg.fillStyle = 'red';
         ctx_bg.fillRect(real_xy_nopad(y + 1),real_xy_nopad(x + 1),grid_size,grid_size);
+        */     
+        let pattern = ctx_bg.createPattern(img.lawn, 'repeat');
+        ctx_bg.fillStyle = pattern;
+        ctx_bg.fillRect(real_xy_nopad(y + 1),real_xy_nopad(x + 1),grid_size,grid_size);
+      }
+      else if( game['map'][x][y] == 3 )
+      {
+        ctx.drawImage(img.tree,real_xy(y + 1)- 2 * grid_pad,real_xy(x + 1)- 1 * grid_pad,sprite_dest_size + 4 * grid_pad,sprite_dest_size + 3 * grid_pad);
       }
     }
   }

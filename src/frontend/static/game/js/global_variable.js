@@ -39,7 +39,7 @@ let max_blocks = vue._data.max_blocks;
 //all image
 let img = {};
 let img_count = 0;
-let img_sum = 5;
+let img_sum = 7;
 
 //functions that init_canvas need,cannot be put in game.js
 
