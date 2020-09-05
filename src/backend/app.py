@@ -179,7 +179,7 @@ def user_register():
     sql = "insert into progress values ('{0}', 1)".format(username)
     res = func(sql,m='w')
     if res:
-        return '<b>alert("添加成功")</b>'
+        return 'Code:200'
     else:
         return 'Code:210'
 
@@ -200,8 +200,8 @@ def progree_udpate():
     else:
         return 'Code:302'
 
-@app.route('/progress/send/',  methods=["POST"])
-def progress_send():
+@app.route('/user/send/',  methods=["POST"])
+def user_send():
     data = dict(request.form)
     email = data['email']
     code = random.sample(list(range(9, 100)), 3)
@@ -216,7 +216,12 @@ def progress_send():
     email_content = "您的验证码为：%s" % code 
     email_title = "少儿编程游戏"
 
-    sendMail(mail_user, mail_pwd, mail_sender, maill)
+    try:
+        sendMail(mail_user, mail_pwd, mail_sender, mail_receiver, email_content, email_title)
+        return 'Code:300'
+    except:
+        return 'Code:303'
+    
 
 
 
