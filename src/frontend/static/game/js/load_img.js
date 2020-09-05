@@ -46,7 +46,24 @@ function init_canvas() {
       //start
       if( game['map'][y][x] == 1 )
       {
-        ctx.drawImage(img.idle,0,0,sprite_width,sprite_height,real_xy(x + 1),real_xy(y + 1),sprite_dest_size,sprite_dest_size);
+        //location in idle images
+        let index;
+        switch( game['dir'] ){
+          case cst['dir']['DOWN']:
+            index = 0;
+            break;
+          case cst['dir']['RIGHT']:
+            index = 1;
+            break;
+          case cst['dir']['UP']:
+            index = 2;
+            break;
+          case cst['dir']['LEFT']:
+            index = 3;
+            break;
+        }
+        ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(x + 1),real_xy(y + 1),sprite_dest_size,sprite_dest_size);
+
         game['x'] = x + 1;
         game['y'] = y + 1;
       }

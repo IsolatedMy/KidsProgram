@@ -164,5 +164,5 @@ function game_turn(dir) {
       index = 3;
       break;
   }
-  ctx.drawImage(img.idle,index * 16,0,16,17,real_xy(game['x']),real_xy(game['y']),50,50);
+  ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
 }
