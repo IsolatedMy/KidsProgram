@@ -3,14 +3,14 @@
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="background-color: black; border-color: white; border-width: 5px;">
       <el-row type="flex">
         <el-col :span="2">
-          <el-menu-item index="1" @click.native="main">
-            <i class="el-icon-s-home" style="color: bisque;"></i>
+          <el-menu-item index="1" @click.native="main" style="color: darksalmon; position: fixed; z-index: 100;">
+            <i class="el-icon-s-home"></i>
           </el-menu-item>
         </el-col>
         <el-col :span="24"></el-col>
         <el-col :span="3" type="flex" justify="end" v-if="!this.isLogin">
           <el-menu-item index="3">
-            <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn" icon="icon_register"> 注册</el-button>
+            <el-button type="text" @click.native="register" v-if="!this.isLogin" class="nav_btn"  icon="icon_register"> 注册</el-button>
           </el-menu-item>
         </el-col>
         <el-col :span="3" type="flex" justify="end" v-if="this.isLogin">
@@ -19,30 +19,32 @@
           </el-menu-item>
         </el-col>
         <el-col :span="3" type="flex" justify="end">
-          <el-menu-item index="2">
+          <el-menu-item index="2" style="z-index: 100;">
             <el-button type="text" @click.native="login" v-if="!this.isLogin" class="nav_btn" icon="icon_login"> 登录</el-button>
-            <el-button type="text" @click.native="exitLogin" v-else >退出登录</el-button>
+            <el-button type="text" @click.native="exitLogin" v-else class="nav_btn">退出登录</el-button>
           </el-menu-item>
         </el-col>
       </el-row>
     </el-menu>
     
     <div class="outer_label">
-      <img class="inner_label login_logo" src="../assets/game_logo.png">
+      <div class="slogan" style="left:10%; z-index: 0;animation: updown 3s linear 0s infinite normal none;">Make Coding Easy</div>
+      <div class="slogan" style="left:15%; animation: updown2 4s linear 0s infinite normal none;">All-Ages Friendly</div>
+      <div class="slogan" style="left:60%; top:40%; animation: updown3 6s linear 0s infinite normal none;">solve mazes using programming</div>
+      <img class="inner_label login_logo" src="../assets/game_logo.png" style="z-index:1;">
     </div>
-    <div class="login_form" > <!--style="background-color: #663333;"-->
+    <div class="login_form"> <!--style="background-color: #663333;"-->
       <el-button class="main_btn" @click.native="game" type="primary" round>选关</el-button>
       <el-button class="main_btn" @click.native="community" type="primary" round>社区</el-button>
       <el-button class="main_btn" @click.native="center" type="primary" round>个人中心</el-button>
     </div>
-    <div class="back_label">
+    <div class="back_label" style="z-index: 0;">
       <img  style="width: 100%; height: 95%; top: 0;" src="../assets/bg_login.jpg">
     </div>
     <div style="position: absolute; top: 105%; left: 44%;">
       <span style="color: #000099; left: 30%;" @click="login" >本网站问题请邮件咨询...</span>
     </div>
     <div style="margin-top: 5px; position: absolute; top: 108%; left: 44%;">
-      <!--<span style="float: right; color: #A9A9AB; left: 20px;">版权归属@软工苟命组</span>-->
       <span style="color: #A9A9AB; left: 30%;">版权归属@软工苟命组</span>
     </div>
   </div>
@@ -254,12 +256,119 @@
     -ms-filter: blur(15px);
     filter: blur(15px);
   }
+ .slogan {
+   position: absolute;
+   text-align: center;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 35px;
+   color: rgb(187, 55, 15);
+   border: 5px solid rgb(187, 55, 15);
+   border-radius: 5px;
+   margin:2px;
+   background-color: none;
+ }
+
+ @keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-o-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-moz-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @-webkit-keyframes updown {
+   0%  {top:20%;}
+   25% {top:15%;}
+   50% {top: 20%;}
+   75% {top: 25%;}
+   100% {top: 20%;}
+ }
+
+ @keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-o-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-moz-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+ @-webkit-keyframes updown2 {
+   0%  {top:60%;}
+   25% {top:55%;}
+   50% {top: 60%;}
+   75% {top: 65%;}
+   100% {top: 60%;}
+ }
+
+@keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-o-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-moz-keyframes updown3 {
+   0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
+ @-webkit-keyframes updown3 {
+  0%  {top:40%; left:58%;}
+   25% {top:35%; left:60%}
+   50% {top:40%; left:58%;}
+   75% {top:45%;left:59%}
+   100% {top:40%;left:58%}
+ }
+
   .nav_btn {
     width: 40%;
     height: 100%;
     margin: 0;
     color: bisque;
     text-align: center;
-   
   }
 </style>
