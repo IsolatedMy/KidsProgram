@@ -56,7 +56,9 @@ router.beforeEach((to,from,next)=>{
 
 axios.interceptors.request.use(
     config => {
-        let token = localStorage.getItem('Authorization');
+        let localstorage = require('../static/localstorage');
+        let token = localstorage.get('Authorization');
+        // let token = localStorage.getItem('Authorization');
         if(token){
             config.headers.common['token'] = token
         }

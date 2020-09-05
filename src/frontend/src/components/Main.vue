@@ -134,7 +134,10 @@
       }
     },
     mounted() {
-      let authorization = localStorage.getItem('Authorization');
+      // let authorization = localStorage.getItem('Authorization');
+      let localstorage = require('../../static/localstorage');
+      let authorization = localstorage.get('Authorization');
+      console.log(authorization)
       if (authorization)
         this.loginStatus = true;
       else

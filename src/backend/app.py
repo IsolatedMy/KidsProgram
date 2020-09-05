@@ -97,10 +97,10 @@ def func(sql, m ='r'):
 @app.route('/user/login/', methods=["POST"])
 def user_login():
     data = dict(request.form)
-    username = data['username']
+    username = data['username'][0]
     sql = "select * from user where username = '{0}' ".format(username)
     res = func(sql, 'l')
-    if res and res[2] == data['password']:
+    if res and res[2] == data['password'][0]:
         # token = user.generate_auth_token()
         # return token
         currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
