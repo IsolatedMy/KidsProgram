@@ -212,7 +212,20 @@
 
           let token = response.data
 
-          if (token == 'Code:200')
+
+          if (token == 'Code:201' || token == 'Code:202' || token == 'Code:210') {
+
+            this.$message({
+
+              message: '注册失败',
+
+              type: 'warning'
+
+            })
+
+          }
+
+          else
 
           {
 
@@ -225,18 +238,6 @@
             })
 
             this.$router.push('/');
-
-          }
-
-          else {
-
-            this.$message({
-
-              message: '注册失败',
-
-              type: 'warning'
-
-            })
 
           }
 
