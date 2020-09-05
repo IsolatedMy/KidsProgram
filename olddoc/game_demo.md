@@ -61,3 +61,11 @@ helper function,使人物移动一步,基本思想为
 - 根据game['dir']选用不同的walk_img,及计算local变量
 - 检查是否越过图片边界
 - 动画,每张图片显示frames帧,每次移动step_x,step_y,注意结束时应使用idle.png
+
+
+
+| 队员 | 评分 |
+| ---- | ---- |
+| 刘珂 | 2.0  |
+|      |      |
+

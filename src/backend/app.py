@@ -75,7 +75,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'wc', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:

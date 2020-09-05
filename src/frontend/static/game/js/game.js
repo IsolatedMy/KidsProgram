@@ -166,3 +166,4 @@ function game_turn(dir) {
   }
   ctx.drawImage(img.idle,index * 16,0,sprite_width,sprite_height,real_xy(game['x']),real_xy(game['y']),sprite_dest_size,sprite_dest_size);
 }
+

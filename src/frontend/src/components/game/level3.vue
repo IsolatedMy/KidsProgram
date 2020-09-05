@@ -8,7 +8,7 @@
           </el-menu-item>
         </el-col>
         <el-col type="flex" justify="end">
-          level2
+          level3
         </el-col>
       </el-row>
     </el-menu>
@@ -42,18 +42,21 @@
 export default {
   data: function () {
     return {
-      level: 2,
+      level: 3,
       activeIndex: '1',
-      max_blocks: 7,
+      max_blocks: 20,
       init_game: {
         'dir': 1,
         'x': 0,
         'y': 0,
         //1 indicata start,2 indicate destination,3 indicate obstacle
         'map': [
-          [1, 0, 0],
-          [0, 0, 0],
-          [0, 0, 2],
+          [0, 0, 3, 0, 3, 3, 0, 0],
+          [1, 0, 0, 0, 0, 3, 0, 0],
+          [3, 3, 0, 3, 0, 0, 0, 0],
+          [2, 3, 0, 3, 0, 3, 0, 0],
+          [0, 3, 3, 3, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 3, 0, 0]
         ]
       }
     }

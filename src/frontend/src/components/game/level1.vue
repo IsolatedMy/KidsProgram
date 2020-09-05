@@ -23,9 +23,9 @@
             <canvas id="game" style="position:absolute; left:0; top:0; z-index:1;"></canvas>
             <canvas id="game_bg" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
           </div>
-          <div style="margin-top:0px">
-            <button type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
-            <button type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
+          <div style="margin-top:auto">
+            <button id="run_btn" type="button" class="btn btn-primary my-3 float-right" onClick="button_run()">Run</button>
+            <button id="reset_btn" type="button" class="btn btn-primary my-3 float-right mr-3" onClick="button_reset()">Reset</button>
           </div>
         </div>
         <div id="blockly" class="col-6 d-flex flex-column vh-100">
@@ -41,6 +41,7 @@
 export default {
   data: function () {
     return {
+      max_blocks: 3,
       level: 1,
       activeIndex: '1',
       init_game: {

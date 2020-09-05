@@ -36,41 +36,9 @@ elem_game_bg.width = canvas_width;
 let sprite_width = 16;
 let sprite_height = 17;
 let sprite_dest_size = grid_size - 2 * grid_pad;
-let init_game_array = [
-  {
-    'dir': cst['dir']['DOWN'],
-    'x': 0,
-    'y': 0,
-    //1 indicata start,2 indicate destination,3 indicate obstacle
-    'map': [
-      [1,0,3,0,0],
-      [0,0,0,0,0],
-      [0,0,0,2,0],
-      [3,0,0,0,0],
-      [0,0,0,3,0]
-    ]
-  },
-  {
-    'dir': cst['dir']['DOWN'],
-    'x': 0,
-    'y': 0,
-    //1 indicata start,2 indicate destination,3 indicate obstacle
-    'map': [
-      [0,0,0,0,0,0,0],
-      [0,3,0,0,0,2,0],
-      [0,3,3,0,3,0,0],
-      [0,0,0,0,0,3,0],
-      [0,1,0,0,0,3,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0]
-    ]
-  }
-];
 
 let game = Object.assign({},vue._data.init_game);
-let max_blocks_array = [3,7];
-let max_blocks = max_blocks_array[level];
-
+let max_blocks = vue._data.max_blocks;
 //all image
 let img = {};
 let img_count = 0;

@@ -26,16 +26,16 @@ img.walk_right.onload = loaded;
 //init function
 function init_canvas() {
   //board
-  ctx_bg.strokeRect(0,0,canvas_size,canvas_size);
+  ctx_bg.strokeRect(0,0,canvas_size,canvas_width);
   ctx_bg.beginPath();
   ctx_bg.strokeStyle = "black";
   for (var x = grid_size; x <= canvas_size; x += grid_size) {
       ctx_bg.moveTo(x, 0);
       ctx_bg.lineTo(x, canvas_size);
   }
-  for (var x = grid_size; x <= canvas_size; x += grid_size) {
+  for (var x = grid_size; x <= canvas_width; x += grid_size) {
       ctx_bg.moveTo(0, x);
-      ctx_bg.lineTo(canvas_size, x);
+      ctx_bg.lineTo(canvas_width, x);
   }
   ctx_bg.stroke();
   ctx_bg.closePath();
