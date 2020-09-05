@@ -22,8 +22,10 @@
     <div class="login_form">
       <el-input type="text" v-model="userName" class="qxs-ic" placeholder="用户名"/>
       <el-input type="text" v-model="retrieveKey" class="qxs-ic" placeholder="电子邮箱/手机号"/>
+      <el-input type="text" v-model="retrieve_verification" class="qxs-ic" placeholder="验证码"/>
       <el-input type="password" v-model="newPassword" class="qxs-ic" placeholder="新密码"/>
       <el-input type="password" v-model="newPasswordAgain" class="qxs-ic" placeholder="重复新密码"/>
+      <el-button class="retrieve_btn" @click.native="send"><span>发送验证码</span></el-button>
       <el-button class="retrieve_btn" @click.native="retrieve_password"><span>确定</span></el-button>
     </div>
     <div style="position: absolute; top: 600px; left: 44%; margin-top: 20px;">
@@ -43,6 +45,7 @@
       return {
         userName: '',
         retrieveKey: '',
+        retrieve_verification: '',
         newPassword: '',
         newPasswordAgain: '',
         loginStatus: false,
@@ -119,14 +122,18 @@
           data: this.$qs.stringify({
             username: this.userName,
             password: this.newPassword,
-            key: this.retrieveKey
+            key: this.retrieveKey,
+            retrieve_verification: this.retrieve_verification
           })
         })
         .then((response) =>{
           let data = response.data;
           console.log(data);
-          if (data == '<script>alert("找回密码失败")</scrip' + 't>') {
+          if (data == '<script>alert("找回密码失败")</scrip' + 't>' ) {
             this.$message.warning("找回密码失败，请检查输入格式");
+          }
+          else if (data == 'Code:211') {
+            this.$message.success("验证码错误");
           }
           else {
             this.$message.success("找回密码成功");
@@ -136,6 +143,73 @@
         .catch((error) => {
           console.log(error);
         });
+      },
+      send() {
+
+        let pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+        if (!this.retrieveKey) {
+
+          this.$message.warning('请输入电子邮箱');
+
+          return;
+
+        }
+
+        let isEmail = pattern.test(this.retrieveKey);
+
+        if (!isEmail) {
+
+          this.$message.warning("请输入正确格式的电子邮箱");
+
+          return;
+
+        }
+
+        this.$axios ({
+
+          method: "post",
+
+          url: this.HOST + "/retrieve/send/",
+
+          data: this.$qs.stringify({
+
+            retrieveKey: this.retrieveKey
+
+          })
+
+        })
+
+        .then(
+
+          (response) => {
+
+            let data = response.data;
+
+            if ('Code:300' == data) {
+
+              this.$message.success("验证码发送成功");
+
+            } else {
+
+              this.$message.warning("验证码发送失败");
+
+            }
+
+          }
+
+        )
+
+        .catch(
+
+          (error) => {
+
+            console.log(error);
+
+          }
+
+        );
+
       }
     }
   }
