@@ -77,7 +77,7 @@ def new_post():
 
 def func(sql, m ='r'):
     # 本地使用时需要修改其中的'cmy'和'123456'为自己mysql中的用户和密码
-    py = pymysql.connect('localhost', 'root', 'szgwhwjsls', 'kidsprog', charset='utf8')
+    py = pymysql.connect('localhost', 'cmy', '123456', 'kidsprog', charset='utf8')
     cursor = py.cursor()
     print(sql)
     try:
@@ -165,7 +165,7 @@ def progress_send():
     global code_gb
     code_gb = code
     mail_user = "651423114@qq.com"
-    mail_pwd = "ipzpcmclnedkbdha"
+    mail_pwd = ""#授权码
     mail_sender = "651423114@qq.com"
     mail_receiver = email
 
@@ -185,7 +185,7 @@ def progress_retrieve_send():
     global code_gb
     code_gb = code
     mail_user = "651423114@qq.com"
-    mail_pwd = "ipzpcmclnedkbdha"
+    mail_pwd = ""#授权码
     mail_sender = "651423114@qq.com"
     mail_receiver = retrieveKey
 
